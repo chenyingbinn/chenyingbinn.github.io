@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 360" role="img" aria-labelledby="title desc">
+  <title id="title">Shenzhen Data Exchange logo</title>
+  <desc id="desc">A stylized Shenzhen Data Exchange logo based on the provided reference.</desc>
+  <defs>
+    <linearGradient id="sdeA" x1="120" y1="72" x2="394" y2="270" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#246BFF"/>
+      <stop offset=".48" stop-color="#47A6CD"/>
+      <stop offset="1" stop-color="#8DC46A"/>
+    </linearGradient>
+    <linearGradient id="sdeB" x1="178" y1="97" x2="345" y2="236" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1553C8"/>
+      <stop offset=".58" stop-color="#2F9FB2"/>
+      <stop offset="1" stop-color="#78B95F"/>
+    </linearGradient>
+  </defs>
+  <rect width="520" height="360" fill="none"/>
+  <g transform="translate(0 0)">
+    <path d="M260 36 383 106v142l-123 71-123-71V106z" fill="url(#sdeA)"/>
+    <path d="M260 80 345 129v98l-85 49-85-49v-98z" fill="#fff" opacity=".94"/>
+    <path d="M261 110 327 148 300 165 260 142 219 165 219 189 260 213 301 189 301 177 329 160 329 203 260 244 191 203 191 149z" fill="url(#sdeB)"/>
+    <path d="M219 165 260 142 300 165 260 188z" fill="#fff" opacity=".9"/>
+    <path d="M260 188 301 165 329 181 260 221 191 181 219 165z" fill="#fff" opacity=".82"/>
+  </g>
+  <text x="260" y="300" text-anchor="middle" font-family="Microsoft YaHei, PingFang SC, Arial, sans-serif" font-size="35" font-weight="800" fill="#111827">深圳数据交易所</text>
+  <text x="260" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#111827" letter-spacing="1.2">SHENZHEN DATA EXCHANGE</text>
+</svg>

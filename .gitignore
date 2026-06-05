@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.edge-mobile-profile/
+.edge-desktop-profile/
+*.log
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+browser-*.png
+portfolio-*.zip
