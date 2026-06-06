@@ -279,14 +279,16 @@ function App() {
             </p>
             <span className="period">{text(profile.education.period, locale)}</span>
           </div>
-          <div className="fact-grid">
-            {profile.education.facts.map((fact) => (
-              <div className="fact" key={fact.value}>
-                <span>{text(fact.label, locale)}</span>
-                <strong>{fact.value}</strong>
-              </div>
-            ))}
-          </div>
+          {profile.education.facts.length > 0 && (
+            <div className="fact-grid">
+              {profile.education.facts.map((fact) => (
+                <div className="fact" key={fact.value}>
+                  <span>{text(fact.label, locale)}</span>
+                  <strong>{fact.value}</strong>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         <p className="coursework">
           <BookOpenText size={18} />

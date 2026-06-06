@@ -41,12 +41,12 @@ export const profile = {
   },
   email: "chenyingbinn@163.com",
   headline: {
-    zh: "金融科技、商业分析与大数据会计交叉方向的候选人",
-    en: "FinTech, business analytics, and data-driven accounting candidate",
+    zh: "连接金融流程、数据模型与商业判断的跨学科探索者",
+    en: "Exploring the intersection of finance workflows, data models, and business judgment",
   },
   intro: {
-    zh: "哈尔滨工业大学（深圳）会计学（大数据会计方向）本科生，关注机器学习在金融决策、资金风控与数据产品运营中的应用。拥有 SSCI 一区论文、ESG 书稿、跨境支付财务对账和数据交易平台运营经历。",
-    en: "B.B.A. candidate in Accounting with a Big Data Accounting focus at Harbin Institute of Technology, Shenzhen. I work across interpretable machine learning, financial decision-making, reconciliation workflows, and data product operations.",
+    zh: "我以会计与金融为基础，关注机器学习、数据分析与业务流程如何共同影响真实商业决策。当前经历横跨可解释机器学习研究、ESG 生态分析、跨境支付清结算与数据产品运营。",
+    en: "My work connects accounting and finance foundations with interpretable machine learning, ESG research, cross-border payment reconciliation, and data product operations. I am interested in how data models and business contexts jointly shape better decisions.",
   },
   interests: {
     zh: ["金融科技", "商业分析", "会计与金融交叉", "可解释机器学习"],
@@ -66,13 +66,14 @@ export const profile = {
       en: "Aug. 2023 - Jul. 2027 Expected",
     },
     facts: [
-      { label: { zh: "GPA", en: "GPA" }, value: "3.53 / 4.0" },
-      { label: { zh: "专业排名", en: "Ranking" }, value: "17 / 76" },
-      { label: { zh: "CET-6", en: "CET-6" }, value: "525" },
+      {
+        label: { zh: "学术方向", en: "Academic Focus" },
+        value: "Accounting & Finance × Data Analytics × Interpretable ML",
+      },
     ],
     coursework: {
-      zh: "Python 数据分析、数据库原理与应用、机器学习应用、统计学、会计学相关课程",
-      en: "Python Data Analysis, Database Principles and Applications, Machine Learning Applications, Statistics, Accounting-related Courses",
+      zh: "会计与金融基础、统计与数据库、Python 数据分析、机器学习应用与实证研究方法",
+      en: "Accounting and finance foundations, statistics and databases, Python-based data analysis, machine learning applications, and empirical research methods",
     },
   },
   metrics: [
@@ -302,7 +303,7 @@ export const profile = {
     },
     {
       name: { zh: "语言能力", en: "Languages" },
-      items: ["Mandarin Native", "English CET-6 525"],
+      items: ["Mandarin Native", "English academic reading & writing"],
     },
   ] satisfies SkillGroup[],
   honors: [
@@ -313,10 +314,6 @@ export const profile = {
     {
       zh: "“正大杯”市场调研大赛 · 省级二等奖",
       en: "Provincial Second Prize, Zhengda Cup Market Research Competition",
-    },
-    {
-      zh: "校级优秀学生 | 2024 - 2025 学年、校级二等奖学金",
-      en: "Outstanding Student, HIT Shenzhen, 2024-2025; University Second-class Scholarship",
     },
   ],
   notes: [
