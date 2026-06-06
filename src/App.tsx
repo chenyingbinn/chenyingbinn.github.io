@@ -26,36 +26,36 @@ const assetPath = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 
 const chapterCopy = {
   zh: {
-    academicLabel: "Chapter 02 / 学术与研究",
-    academicTitle: "Academic Foundation + Featured Research",
-    academicDeck: "从会计与大数据会计基础出发，延展到可解释机器学习、FOF 基金筛选与城市 ESG 观察。",
-    fieldLabel: "Chapter 03 / 经历索引",
-    fieldTitle: "经历索引",
-    fieldDeck: "把研究、支付清结算、数据产品运营与风险识别放在同一条经历索引中，观察数据如何进入真实业务现场。",
+    academicLabel: "Chapter 02 / 学术根基",
+    academicTitle: "Academic Grounding + Featured Research",
+    academicDeck: "从会计与金融基础出发，延展到可解释机器学习、FOF 基金筛选与城市 ESG 观察，形成研究与方法训练的交叉路径。",
+    fieldLabel: "Chapter 03 / 实践路径",
+    fieldTitle: "Practice Path / 实践路径",
+    fieldDeck: "把支付清结算、数据产品运营、风险识别与研究经历放在同一条实践路径中，观察数据如何进入真实业务现场。",
     notesLabel: "Chapter 04 / 思考档案",
-    notesTitle: "Notes / Reflections",
+    notesTitle: "Thinking Archive / 思考档案",
     notesDeck:
-      "一些关于金融、数据、AI、职业叙事和产品观察的短札。它们不是主轴，但帮助呈现我如何把经历整理成判断。",
-    capabilitiesLabel: "Chapter 05 / 能力收束",
-    capabilitiesTitle: "Capabilities + Contact",
-    capabilitiesDeck: "用能力矩阵、荣誉记录和邮箱入口，收束到可以继续对话的地方。",
+      "一些关于金融、数据、AI、职业叙事与产品观察的短札。它们不是履历补充，而是我整理经验、形成判断的方式。",
+    capabilitiesLabel: "Chapter 05 / 能力结构",
+    capabilitiesTitle: "Capability Map + Contact",
+    capabilitiesDeck: "用能力结构、外部认可和邮箱入口，收束到可以继续交流与合作的地方。",
   },
   en: {
-    academicLabel: "Chapter 02 / Academic & Research",
-    academicTitle: "Academic Foundation + Featured Research",
+    academicLabel: "Chapter 02 / Academic Grounding",
+    academicTitle: "Academic Grounding + Featured Research",
     academicDeck:
-      "A bridge from accounting and big data accounting foundations to interpretable machine learning, FOF selection, and Shenzhen ESG research.",
-    fieldLabel: "Chapter 03 / Experience Index",
-    fieldTitle: "Experience Index",
+      "A path from accounting and finance foundations to interpretable machine learning, FOF selection, and Shenzhen ESG research.",
+    fieldLabel: "Chapter 03 / Practice Path",
+    fieldTitle: "Practice Path",
     fieldDeck:
-      "Connecting research, payment clearing, data product operations, and risk identification into one experience index, observing how data enters real business contexts.",
+      "Connecting payment reconciliation, data product operations, risk identification, and research experience into one practice path.",
     notesLabel: "Chapter 04 / Thinking Archive",
-    notesTitle: "Notes / Reflections",
+    notesTitle: "Thinking Archive",
     notesDeck:
-      "Short notes on finance, data, AI, career narrative, and product observation. They are not the main axis, but they show how I turn experience into judgment.",
-    capabilitiesLabel: "Chapter 05 / Closing Layer",
-    capabilitiesTitle: "Capabilities + Contact",
-    capabilitiesDeck: "A final layer of skills, honors, and contact for continuing the conversation.",
+      "Short notes on finance, data, AI, career narrative, and product observation. They show how I organize experience into judgment.",
+    capabilitiesLabel: "Chapter 05 / Capability Map",
+    capabilitiesTitle: "Capability Map + Contact",
+    capabilitiesDeck: "A final layer of capabilities, recognition, and contact for continuing the conversation.",
   },
 } satisfies Record<Locale, Record<string, string>>;
 
