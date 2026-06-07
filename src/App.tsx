@@ -328,11 +328,15 @@ function App() {
                 <span key={item}>{item}</span>
               ))}
             </div>
+            <h3>{locale === "zh" ? "我的贡献" : "My Contribution"}</h3>
             <ul className="publication-list">
-              {featuredPublication.bullets[locale].map((bullet) => (
+              {(featuredPublication.contribution?.[locale] ?? featuredPublication.bullets[locale]).map((bullet) => (
                 <li key={bullet}>{bullet}</li>
               ))}
             </ul>
+            {featuredPublication.researchSignal && (
+              <p className="section-deck">{text(featuredPublication.researchSignal, locale)}</p>
+            )}
             {featuredPublication.link && (
               <a className="text-link" href={featuredPublication.link} target="_blank" rel="noreferrer">
                 DOI: 10.1016/j.pacfin.2026.103198

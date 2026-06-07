@@ -13,6 +13,8 @@ export interface Experience {
   period: Localized;
   summary: Localized;
   bullets: Record<Locale, string[]>;
+  contribution?: Record<Locale, string[]>;
+  researchSignal?: Localized;
   tags: string[];
   link?: string;
 }
@@ -127,18 +129,40 @@ export const profile = {
         en: "2026",
       },
       summary: {
-        zh: "围绕 FOF 组合构建与基金筛选，使用 XGBoost 与 SHAP 搭建可解释机器学习框架。",
-        en: "Built an interpretable machine learning framework for fund screening and FOF portfolio construction using XGBoost and SHAP.",
+        zh: "这项研究使用可解释机器学习方法筛选 FOF 子基金，并结合资产配置理论构建 FOF 产品。研究比较多类机器学习模型，并通过 SHAP 分析解释 XGBoost 的特征贡献，使模型结果能够回到风险收益权衡和基金选择逻辑中。",
+        en: "This study applies interpretable machine learning to FOF sub-fund selection and connects model outputs with portfolio-construction logic. It compares multiple model families and uses SHAP to interpret XGBoost feature contributions, linking predictive results back to risk-return trade-offs and fund selection rationale.",
       },
       bullets: {
         zh: [
-          "负责机器学习部分的原理梳理与建模实现，覆盖数据清洗、特征工程、样本平衡、参数优化、模型评估与结果可视化。",
-          "将模型输出与资产配置、风险收益权衡等金融理论结合，参与英文论文写作、修改与实证验证。",
+          "机器学习实现：实现并调试 Logistic Regression、Decision Tree、Random Forest、XGBoost、ANN 与 LSTM 六类模型，完成训练、验证、指标比较与结果可视化。",
+          "模型优化与选择：结合数据不平衡特征、SMOTE 处理、参数优化和多指标评估，参与确定 XGBoost 作为重点解释与应用模型。",
+          "可解释性分析：参与 SHAP 图表制作与结果解释，将 TMStkSlct、Beta、Treynor、Alpha、StdReturn 等特征贡献与风险韧性、成长潜力和基金筛选逻辑相连接。",
+          "研究写作与方法贡献：围绕机器学习流程、可视化、实证结果验证和金融理论解释撰写初稿内容，对应论文 CRediT role：Writing – original draft, Visualization, Software, Methodology。",
         ],
         en: [
-          "Owned machine learning implementation across data cleaning, feature engineering, sample balancing, parameter tuning, model evaluation, and visualization.",
-          "Connected model outputs with asset allocation and risk-return theory while contributing to English manuscript writing and revision.",
+          "Machine learning implementation: Implemented and debugged six model families, including Logistic Regression, Decision Tree, Random Forest, XGBoost, ANN, and LSTM, covering training, validation, metric comparison, and result visualization.",
+          "Model optimization and selection: Addressed class imbalance through SMOTE, participated in hyperparameter tuning and multi-metric evaluation, and helped identify XGBoost as the key model for interpretation and application.",
+          "Interpretability analysis: Contributed to SHAP visualizations and interpretation, connecting features such as TMStkSlct, Beta, Treynor, Alpha, and StdReturn with risk resilience, growth potential, and fund selection logic.",
+          "Research writing and methodology: Drafted and refined content related to the machine learning workflow, visualizations, empirical validation, and financial interpretation, aligned with the paper’s CRediT role: Writing – original draft, Visualization, Software, Methodology.",
         ],
+      },
+      contribution: {
+        zh: [
+          "机器学习实现：实现并调试 Logistic Regression、Decision Tree、Random Forest、XGBoost、ANN 与 LSTM 六类模型，完成训练、验证、指标比较与结果可视化。",
+          "模型优化与选择：结合数据不平衡特征、SMOTE 处理、参数优化和多指标评估，参与确定 XGBoost 作为重点解释与应用模型。",
+          "可解释性分析：参与 SHAP 图表制作与结果解释，将 TMStkSlct、Beta、Treynor、Alpha、StdReturn 等特征贡献与风险韧性、成长潜力和基金筛选逻辑相连接。",
+          "研究写作与方法贡献：围绕机器学习流程、可视化、实证结果验证和金融理论解释撰写初稿内容，对应论文 CRediT role：Writing – original draft, Visualization, Software, Methodology。",
+        ],
+        en: [
+          "Machine learning implementation: Implemented and debugged six model families, including Logistic Regression, Decision Tree, Random Forest, XGBoost, ANN, and LSTM, covering training, validation, metric comparison, and result visualization.",
+          "Model optimization and selection: Addressed class imbalance through SMOTE, participated in hyperparameter tuning and multi-metric evaluation, and helped identify XGBoost as the key model for interpretation and application.",
+          "Interpretability analysis: Contributed to SHAP visualizations and interpretation, connecting features such as TMStkSlct, Beta, Treynor, Alpha, and StdReturn with risk resilience, growth potential, and fund selection logic.",
+          "Research writing and methodology: Drafted and refined content related to the machine learning workflow, visualizations, empirical validation, and financial interpretation, aligned with the paper’s CRediT role: Writing – original draft, Visualization, Software, Methodology.",
+        ],
+      },
+      researchSignal: {
+        zh: "研究信号：这项研究对我最重要的训练，不只是提高模型准确率，而是把模型选择、特征解释与 FOF 风险收益权衡放在同一个金融决策框架中理解。",
+        en: "Research signal: The key training for me was not only improving model accuracy, but also understanding model selection, feature interpretation, and FOF risk-return trade-offs within one financial decision framework.",
       },
       tags: ["XGBoost", "SHAP", "FOF", "Finance"],
       link: "https://doi.org/10.1016/j.pacfin.2026.103198",
@@ -423,7 +447,7 @@ export const labels = {
     honors: "外部认可",
     contactTitle: "让金融流程、数据模型与商业判断形成连接",
     contactBody: "欢迎就金融科技、商业分析、数据产品运营、财务数据分析和研究合作机会联系我。",
-    privacy: "公开页面仅展示邮箱，不包含手机号、个人敏感材料或完整简历文件。",
+    privacy: "公开页面仅展示邮箱，不包含其他个人敏感材料或完整简历文件。",
   },
   en: {
     nav: ["Overview", "Research", "Experience", "Capabilities", "Notes", "Contact"],
