@@ -198,17 +198,19 @@ export const profile = {
         en: "Mar. 2026 - Jun. 2026",
       },
       summary: {
-        zh: "参与跨境支付业务资金对账，理解资金流、业务流与财务流程之间的连接。",
-        en: "Supported reconciliation for cross-border payment transactions and deepened understanding of fund flows, business flows, and finance processes.",
+        zh: "在跨境支付与财务运营场景中，参与清结算、国际渠道手工入账、调账复核、基础会计审核与出纳支持，关注资金流、信息流与账务记录之间的一致性。",
+        en: "Worked across cross-border payment reconciliation and finance operations, focusing on the consistency between fund flows, transaction information, and accounting records.",
       },
       bullets: {
         zh: [
-          "协助核对平台交易记录、银行流水及内部系统数据，支持资金结算与 reconciliation 流程。",
-          "识别并跟进交易差异、资金异常及数据不一致问题，整理资金流转数据与对账结果。",
+          "围绕 BV、DBS 等国际渠道手工入账，核对渠道文件、资金流与系统交易信息，并根据双边信息整理可录入系统的入账文件。",
+          "参与支付审核、扣费及收款手续费退费等调账复核，协助跟进支付失败、退票、入账时间差等异常场景，并及时同步 mentor 与运营团队。",
+          "支持基础财务与出纳工作，包括单据管理、报销审核、国内对公/对私转账、部分外币转账及账户间资金调拨；整理多币种汇率数据以支撑产品手续费收取。",
         ],
         en: [
-          "Verified platform transaction records, bank statements, and internal system data to support fund settlement and reconciliation workflows.",
-          "Followed up on reconciliation discrepancies, fund exceptions, and data inconsistencies while organizing fund flow records.",
+          "Reviewed manual entry files for international channels such as BV and DBS, cross-checking channel records, fund movements, and system transaction information before preparing entry files for internal processing.",
+          "Supported payment review and adjustment checks for deductions and fee refunds, while helping follow up on exceptions such as payment failures, returned transactions, and timing differences between fund flows and system records.",
+          "Assisted with accounting and treasury operations, including document management, reimbursement review, domestic transfers, selected foreign-currency payments, account-level fund allocation, and multi-currency FX data support for product fees.",
         ],
       },
       tags: ["Reconciliation", "Cross-border Payment", "Finance Ops"],
@@ -233,19 +235,19 @@ export const profile = {
         en: "Jun. 2025 - Sep. 2025",
       },
       summary: {
-        zh: "参与数据产品上架与运营，连接数据供需、竞品分析和交易数据洞察。",
-        en: "Supported data product listing and operations by connecting demand discovery, competitor analysis, and transaction data insight.",
+        zh: "参与数据产品上架与需求运营，接触金融、医疗、公共数据等行业场景及数据资产 ABS 前期对接，关注数据字段、接口说明、客户需求与交付方式之间的匹配。",
+        en: "Supported data product listing and demand operations across scenarios such as finance, healthcare, public data, and preliminary data-asset ABS discussions, focusing on the alignment between data fields, API documentation, customer needs, and delivery methods.",
       },
       bullets: {
         zh: [
-          "梳理数据供需双方需求，形成需求文档 5 份，推动 2 个数据 API 产品功能优化。",
-          "对比分析 3 家主流数据交易平台的定价机制与产品结构，输出竞品分析报告。",
-          "使用 Python pandas 清洗并可视化平台交易数据，识别高频需求行业 TOP3。",
+          "分类整理并更新客户需求文档，将分散需求沉淀为产品方向、字段需求、接口说明和后续优化线索。",
+          "推动数据 API 产品的字段补充与接口说明优化，跟进客户后续需求并同步给产品与业务团队。",
+          "使用 Python 对平台交易与需求数据进行清洗、统计和可视化，识别高频需求行业与数据产品机会，辅助平台运营判断。",
         ],
         en: [
-          "Prepared 5 requirement documents and contributed to 2 data API product optimizations.",
-          "Compared pricing mechanisms and product structures across 3 major data trading platforms.",
-          "Used Python pandas to clean and visualize transaction data, identifying the top 3 high-frequency demand industries.",
+          "Classified and updated customer demand documents, translating scattered requests into product directions, field requirements, API documentation needs, and follow-up optimization clues.",
+          "Helped improve data API products by supplementing fields, refining interface descriptions, collecting follow-up customer needs, and synchronizing them with product and business teams.",
+          "Used Python to clean, summarize, and visualize platform transaction and demand data, identifying high-frequency demand industries and potential data product opportunities for operational decision-making.",
         ],
       },
       tags: ["Python", "Data Products", "Market Analysis"],
@@ -270,19 +272,19 @@ export const profile = {
         en: "Jun. 2024 - Jan. 2025",
       },
       summary: {
-        zh: "围绕金融平台交易异常识别，设计机器学习异常检测功能原型与模型评估框架。",
-        en: "Designed a machine-learning-based anomaly detection prototype and evaluation framework for abnormal financial platform transactions.",
+        zh: "作为小组负责人，围绕金融交易反欺诈场景，结合从业者访谈、特征工程、机器学习建模与系统化应用方案，探索如何把交易数据转化为可执行的风控判断。",
+        en: "Led a team project on financial transaction anti-fraud, connecting practitioner interviews, feature engineering, machine learning models, and system-level application design to translate transaction data into actionable risk-control judgments.",
       },
       bullets: {
         zh: [
-          "对风控相关人员开展 5 次深度访谈，识别交易异常预警核心痛点。",
-          "撰写产品功能说明文档，涵盖数据流、模型触发逻辑与人工复核流程。",
-          "使用混淆矩阵分析召回率与误报率之间的权衡，并提出优化建议。",
+          "基于约 104.86 万笔交易样本与极度不平衡的欺诈标签分布，参与数据清洗、探索性分析、衍生特征构建、特征筛选与 SMOTE 处理。",
+          "比较 Logistic 回归、决策树与 XGBoost 等模型，使用 AUC、Recall、F2 等指标评估欺诈识别效果，并将模型选择与不同资源约束和业务场景对应。",
+          "结合银行从业人员访谈，设计智能风控系统化应用思路，将模型评分与规则引擎、异常检测和人工审核结合为反欺诈闭环，形成模型方案与应用设计并获得相关竞赛认可。",
         ],
         en: [
-          "Conducted 5 interviews with risk control personnel to identify pain points in transaction anomaly alerts.",
-          "Drafted function documentation covering data flow, model trigger logic, and manual review workflows.",
-          "Used confusion matrix analysis to evaluate recall and false positive tradeoffs and propose optimization ideas.",
+          "Worked with approximately 1.05 million transaction records and a highly imbalanced fraud-label distribution, covering data cleaning, exploratory analysis, derived feature construction, feature selection, and SMOTE-based resampling.",
+          "Compared Logistic Regression, Decision Tree, and XGBoost models using AUC, Recall, and F2-oriented evaluation, linking model choice to different resource constraints and business scenarios.",
+          "Incorporated interviews with banking practitioners into a system-level risk-control design, combining model scoring with rule engines, anomaly detection, and manual review as an anti-fraud decision loop, with related competition recognition.",
         ],
       },
       tags: ["Risk Control", "Product Design", "Model Evaluation"],
@@ -421,7 +423,7 @@ export const labels = {
     honors: "外部认可",
     contactTitle: "让金融流程、数据模型与商业判断形成连接",
     contactBody: "欢迎就金融科技、商业分析、数据产品运营、财务数据分析和研究合作机会联系我。",
-    privacy: "公开页面仅展示邮箱，不包含手机号、证件、成绩单或完整简历文件。",
+    privacy: "公开页面仅展示邮箱，不包含手机号、个人敏感材料或完整简历文件。",
   },
   en: {
     nav: ["Overview", "Research", "Experience", "Capabilities", "Notes", "Contact"],
@@ -443,6 +445,6 @@ export const labels = {
     honors: "Recognition",
     contactTitle: "Connecting finance workflows, data models, and business judgment",
     contactBody: "Open to opportunities in FinTech, business analytics, data product operations, financial data analysis, and research collaboration.",
-    privacy: "This public site displays email only and does not include phone numbers, identity documents, transcripts, or full resume files.",
+    privacy: "This public site displays email only and does not include phone numbers, sensitive personal materials, or full resume files.",
   },
 } satisfies Record<Locale, Record<string, unknown>>;
