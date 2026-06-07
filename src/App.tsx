@@ -338,7 +338,7 @@ function App() {
               <p className="research-signal">{text(featuredPublication.researchSignal, locale)}</p>
             )}
             {featuredPublication.link && (
-              <a className="text-link" href={featuredPublication.link} target="_blank" rel="noreferrer">
+              <a className="text-link" href={featuredPublication.link} target="_blank" rel="noopener noreferrer">
                 DOI: 10.1016/j.pacfin.2026.103198
                 <ArrowUpRight size={16} />
               </a>
@@ -647,7 +647,7 @@ function ExperienceDetail({ experience, locale }: { experience: Experience; loca
           ))}
         </div>
         {experience.link && (
-          <a href={experience.link} target="_blank" rel="noreferrer">
+          <a href={experience.link} target="_blank" rel="noopener noreferrer">
             {copy.publication}
             <ArrowUpRight size={16} />
           </a>
