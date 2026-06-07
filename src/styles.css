@@ -107,6 +107,13 @@ button {
   box-shadow: 0 0 28px rgba(103, 232, 249, 0.14);
 }
 
+.brand-mark-image {
+  display: block;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
 .masthead-kicker {
   min-width: 170px;
   border-right: 1px solid rgba(103, 232, 249, 0.13);
@@ -428,8 +435,9 @@ h1 span + span {
 
 .signal-map-topline strong {
   color: #cfe8ee;
-  font-size: 0.86rem;
+  font-size: 0.78rem;
   font-weight: 760;
+  white-space: nowrap;
 }
 
 .signal-map-canvas {

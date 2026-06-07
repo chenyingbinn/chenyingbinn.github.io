@@ -201,7 +201,7 @@ function App() {
       <div className="ambient-grid" aria-hidden="true" />
       <header className="topbar">
         <a className="brand-mark" href="#overview" aria-label="Yingbin Chen portfolio home">
-          <span>YC</span>
+          <img className="brand-mark-image" src={assetPath("favicon.svg")} alt="" aria-hidden="true" />
         </a>
         <div className="masthead-kicker" aria-label="Portfolio positioning">
           <span>{hero.portfolio}</span>
@@ -533,7 +533,7 @@ function SignalMap({ locale }: { locale: Locale }) {
     <aside className="signal-map-card" aria-label={hero.mapTitle}>
       <div className="signal-map-topline">
         <span>{hero.mapTitle}</span>
-        <strong>YC / 2026</strong>
+        <strong>Yingbin Chen / 2026</strong>
       </div>
       <div className="signal-map-canvas">
         <svg className="signal-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
