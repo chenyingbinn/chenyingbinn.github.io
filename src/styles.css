@@ -974,7 +974,38 @@ h1 span + span {
 
 .featured-research-card .publication-content p,
 .featured-research-card .publication-list {
-  color: #cbd5e1;
+  color: rgba(226, 236, 245, 0.88);
+}
+
+.featured-research-card .publication-content h3 {
+  margin: 18px 0 10px;
+  color: #a7f3ff;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.featured-research-card .publication-list {
+  color: #d7e3ec;
+}
+
+.featured-research-card .publication-list li + li {
+  margin-top: 8px;
+}
+
+.featured-research-card .publication-list li::marker {
+  color: #67e8f9;
+}
+
+.featured-research-card .research-signal {
+  margin: 10px 0 18px;
+  border-left: 2px solid #67e8f9;
+  border-radius: 8px;
+  background: rgba(103, 232, 249, 0.06);
+  padding: 12px 14px;
+  color: #d7e3ec;
+  font-size: 0.95rem;
+  line-height: 1.7;
 }
 
 .featured-research-card .meta-row span,
@@ -1419,6 +1450,33 @@ h1 span + span {
 #experience > * {
   position: relative;
   z-index: 1;
+}
+
+#experience .chapter-intro {
+  border-color: rgba(15, 118, 110, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(236, 245, 247, 0.62)),
+    rgba(248, 250, 252, 0.72);
+}
+
+#experience .chapter-intro > span {
+  color: #0f766e;
+}
+
+#experience .chapter-intro h2 {
+  color: #223645;
+}
+
+#experience .chapter-intro p {
+  color: rgba(35, 55, 70, 0.78);
+}
+
+#experience .section-heading {
+  color: #223645;
+}
+
+#experience .section-deck {
+  color: rgba(35, 55, 70, 0.72);
 }
 
 .section-deck {

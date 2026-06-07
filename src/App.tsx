@@ -335,7 +335,7 @@ function App() {
               ))}
             </ul>
             {featuredPublication.researchSignal && (
-              <p className="section-deck">{text(featuredPublication.researchSignal, locale)}</p>
+              <p className="research-signal">{text(featuredPublication.researchSignal, locale)}</p>
             )}
             {featuredPublication.link && (
               <a className="text-link" href={featuredPublication.link} target="_blank" rel="noreferrer">
