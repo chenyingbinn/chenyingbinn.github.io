@@ -520,7 +520,7 @@ function App() {
               />
             ))}
           </div>
-          <ExperienceDetail experience={activeExperience} locale={locale} />
+          <ExperienceDetail key={`${activeExperience.id}-${locale}`} experience={activeExperience} locale={locale} />
         </div>
       </AnimatedSection>
 
@@ -749,7 +749,6 @@ function TimelineMark({ experience }: { experience: Experience }) {
 function ExperienceDetail({ experience, locale }: { experience: Experience; locale: Locale }) {
   const copy = labels[locale];
   const shouldReduceMotion = useReducedMotion();
-  const cardVariants = getCardVariants(shouldReduceMotion);
   const hoverMotion = getHoverMotion(shouldReduceMotion);
   const orgNote = organizationNotes[experience.id] ?? {
     mark: "project" as const,
@@ -771,27 +770,20 @@ function ExperienceDetail({ experience, locale }: { experience: Experience; loca
       <p className="organization">{text(experience.organization, locale)}</p>
       <p>{text(experience.summary, locale)}</p>
       {experience.workflow && (
-        <motion.div
+        <div
           className="workflow-strip"
+          key={`${experience.id}-${locale}-workflow`}
           aria-label={locale === "zh" ? "业务流程" : "Workflow"}
-          initial="hidden"
-          variants={staggerContainer}
-          viewport={{ once: true, amount: 0.45 }}
-          whileInView="visible"
         >
           {experience.workflow[locale].map((step, index) => (
             <span className="workflow-segment" key={step}>
-              <motion.span className="workflow-step" variants={cardVariants}>
-                {step}
-              </motion.span>
+              <span className="workflow-step">{step}</span>
               {index < experience.workflow![locale].length - 1 && (
-                <motion.span className="workflow-arrow" variants={cardVariants}>
-                  →
-                </motion.span>
+                <span className="workflow-arrow">→</span>
               )}
             </span>
           ))}
-        </motion.div>
+        </div>
       )}
       <ul>
         {experience.bullets[locale].map((bullet) => (

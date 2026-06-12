@@ -1628,6 +1628,8 @@ h1 span + span {
   display: inline-flex;
   align-items: center;
   min-height: 30px;
+  visibility: visible;
+  opacity: 1;
   border: 1px solid rgba(103, 232, 249, 0.14);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.07);
