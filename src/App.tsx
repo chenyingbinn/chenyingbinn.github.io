@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowUpRight,
   BarChart3,
@@ -16,6 +17,8 @@ import {
   Sparkles,
   Target,
 } from "lucide-react";
+import { AnimatedSection } from "./components/AnimatedSection";
+import { getCardVariants, getHoverMotion, staggerContainer } from "./motion";
 import { Experience, ExperienceKind, labels, Locale, profile } from "./profile";
 
 type FilterKind = "all" | ExperienceKind;
@@ -198,6 +201,9 @@ function App() {
   const [locale, setLocale] = useState<Locale>("zh");
   const [activeFilter, setActiveFilter] = useState<FilterKind>("all");
   const [activeExperienceId, setActiveExperienceId] = useState("photonpay");
+  const shouldReduceMotion = useReducedMotion();
+  const cardVariants = getCardVariants(shouldReduceMotion);
+  const hoverMotion = getHoverMotion(shouldReduceMotion);
 
   const copy = labels[locale];
   const hero = heroContent[locale];
@@ -245,8 +251,8 @@ function App() {
         </button>
       </header>
 
-      <section className="hero portfolio-chapter chapter-opening" id="overview">
-        <div className="hero-copy">
+      <AnimatedSection className="hero portfolio-chapter chapter-opening" id="overview">
+        <motion.div className="hero-copy" variants={staggerContainer}>
           <div className="eyebrow">
             <Sparkles size={16} />
             <span>{hero.kicker}</span>
@@ -258,11 +264,13 @@ function App() {
           <p className="headline">{hero.subtitle}</p>
           <p className="intro">{hero.intro}</p>
           <p className="positioning-line">{hero.positioningLine}</p>
-          <div className="identity-tags" aria-label="Portfolio focus areas">
+          <motion.div className="identity-tags" aria-label="Portfolio focus areas" variants={staggerContainer}>
             {hero.tags.map((tag) => (
-              <span key={tag}>{tag}</span>
+              <motion.span key={tag} variants={cardVariants}>
+                {tag}
+              </motion.span>
             ))}
-          </div>
+          </motion.div>
           <div className="hero-actions" aria-label="Hero actions">
             <a className="primary-action" href={`mailto:${profile.email}`}>
               <Mail size={18} />
@@ -277,13 +285,13 @@ function App() {
               <ArrowUpRight size={16} />
             </a>
           </div>
-        </div>
+        </motion.div>
 
         <SignalMap locale={locale} />
 
-      </section>
+      </AnimatedSection>
 
-      <section className="portfolio-chapter chapter-academic" id="academic-research">
+      <AnimatedSection className="portfolio-chapter chapter-academic" id="academic-research">
         <ChapterIntro label={chapter.academicLabel} title={chapter.academicTitle} deck={chapter.academicDeck} />
 
       <section className="section-band education-band">
@@ -343,8 +351,18 @@ function App() {
               : "A curated view of how interpretable models, financial questions, and Shenzhen ESG research shape my understanding of data-driven decisions."}
           </p>
         </div>
-        <div className="research-showcase">
-        <article className="featured-research-card publication-grid">
+        <motion.div
+          className="research-showcase"
+          initial="hidden"
+          variants={staggerContainer}
+          viewport={{ once: true, amount: 0.16 }}
+          whileInView="visible"
+        >
+        <motion.article
+          className="featured-research-card publication-grid motion-card"
+          variants={cardVariants}
+          whileHover={hoverMotion}
+        >
           <figure className="journal-cover">
             <img src={assetPath("assets/pbfj-cover.jpg")} alt="Pacific-Basin Finance Journal cover by Elsevier" />
             <figcaption>Pacific-Basin Finance Journal / Elsevier</figcaption>
@@ -359,21 +377,29 @@ function App() {
             <h2>{text(featuredPublication.title, locale)}</h2>
             <p>{text(featuredPublication.summary, locale)}</p>
             {featuredPublication.publicationMeta && (
-              <div className="publication-meta" aria-label={locale === "zh" ? "论文信息" : "Publication information"}>
+              <motion.div
+                className="publication-meta"
+                aria-label={locale === "zh" ? "论文信息" : "Publication information"}
+                initial="hidden"
+                variants={staggerContainer}
+                viewport={{ once: true, amount: 0.35 }}
+                whileInView="visible"
+              >
                 {featuredPublication.publicationMeta.map((item) => (
-                  <div
+                  <motion.div
                     className={
                       text(item.label, "en") === "CRediT"
                         ? "publication-meta-item publication-meta-item--wide"
                         : "publication-meta-item"
                     }
                     key={text(item.label, locale)}
+                    variants={cardVariants}
                   >
                     <span>{text(item.label, locale)}</span>
                     <strong>{text(item.value, locale)}</strong>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             )}
             <div className="contribution-grid">
               {["FOF", "XGBoost", "SHAP", "Asset Allocation", "Explainable AI"].map((item) => (
@@ -381,20 +407,39 @@ function App() {
               ))}
             </div>
             <h3>{locale === "zh" ? "我的贡献" : "My Contribution"}</h3>
-            <div className="contribution-card-grid">
+            <motion.div
+              className="contribution-card-grid"
+              initial="hidden"
+              variants={staggerContainer}
+              viewport={{ once: true, amount: 0.24 }}
+              whileInView="visible"
+            >
               {(featuredPublication.contribution?.[locale] ?? featuredPublication.bullets[locale]).map((bullet) => {
                 const contribution = splitContribution(bullet);
 
                 return (
-                  <article className="contribution-card" key={bullet}>
+                  <motion.article
+                    className="contribution-card motion-card"
+                    key={bullet}
+                    variants={cardVariants}
+                    whileHover={hoverMotion}
+                  >
                     {contribution.title && <h4>{contribution.title}</h4>}
                     <p>{contribution.body}</p>
-                  </article>
+                  </motion.article>
                 );
               })}
-            </div>
+            </motion.div>
             {featuredPublication.researchSignal && (
-              <p className="research-signal">{text(featuredPublication.researchSignal, locale)}</p>
+              <motion.p
+                className="research-signal"
+                initial="hidden"
+                variants={cardVariants}
+                viewport={{ once: true, amount: 0.4 }}
+                whileInView="visible"
+              >
+                {text(featuredPublication.researchSignal, locale)}
+              </motion.p>
             )}
             {featuredPublication.link && (
               <a className="text-link" href={featuredPublication.link} target="_blank" rel="noopener noreferrer">
@@ -403,9 +448,13 @@ function App() {
               </a>
             )}
           </div>
-        </article>
+        </motion.article>
         {secondaryResearch && (
-          <article className="secondary-research-card">
+          <motion.article
+            className="secondary-research-card motion-card"
+            variants={cardVariants}
+            whileHover={hoverMotion}
+          >
             <div className="secondary-card-index">02</div>
             <div>
               <div className="meta-row">
@@ -420,13 +469,13 @@ function App() {
                 ))}
               </div>
             </div>
-          </article>
+          </motion.article>
         )}
-        </div>
+        </motion.div>
       </section>
-      </section>
+      </AnimatedSection>
 
-      <section className="portfolio-chapter chapter-field section-band" id="experience">
+      <AnimatedSection className="portfolio-chapter chapter-field section-band" id="experience">
         <ChapterIntro label={chapter.fieldLabel} title={chapter.fieldTitle} deck={chapter.fieldDeck} compact />
         <div className="section-header-row">
           <div>
@@ -473,9 +522,9 @@ function App() {
           </div>
           <ExperienceDetail experience={activeExperience} locale={locale} />
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="portfolio-chapter chapter-capabilities" id="capabilities">
+      <AnimatedSection className="portfolio-chapter chapter-capabilities" id="capabilities">
         <ChapterIntro
           label={chapter.capabilitiesLabel}
           title={chapter.capabilitiesTitle}
@@ -484,18 +533,29 @@ function App() {
 
       <section className="section-band" id="skills">
         <SectionHeading icon={<Network size={22} />} title={copy.skills} />
-        <div className="skills-grid">
+        <motion.div
+          className="skills-grid"
+          initial="hidden"
+          variants={staggerContainer}
+          viewport={{ once: true, amount: 0.18 }}
+          whileInView="visible"
+        >
           {profile.skillGroups.map((group) => (
-            <article className="skill-group" key={text(group.name, locale)}>
+            <motion.article
+              className="skill-group motion-card"
+              key={text(group.name, locale)}
+              variants={cardVariants}
+              whileHover={hoverMotion}
+            >
               <h3>{text(group.name, locale)}</h3>
               <div className="skill-tags">
                 {group.items[locale].map((item) => (
                   <span key={item}>{item}</span>
                 ))}
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       <section className="section-band honors-band" id="honors">
@@ -510,13 +570,25 @@ function App() {
         </div>
       </section>
 
-      </section>
+      </AnimatedSection>
 
-      <section className="portfolio-chapter chapter-notes section-band" id="notes">
+      <AnimatedSection className="portfolio-chapter chapter-notes section-band" id="notes">
         <ChapterIntro label={chapter.notesLabel} title={chapter.notesTitle} deck={chapter.notesDeck} />
-        <div className="notes-grid" aria-label={chapter.notesTitle}>
+        <motion.div
+          className="notes-grid"
+          aria-label={chapter.notesTitle}
+          initial="hidden"
+          variants={staggerContainer}
+          viewport={{ once: true, amount: 0.18 }}
+          whileInView="visible"
+        >
           {profile.notes.map((note, index) => (
-            <article className={index === 0 ? "note-card featured" : "note-card"} key={note.id}>
+            <motion.article
+              className={index === 0 ? "note-card featured motion-card" : "note-card motion-card"}
+              key={note.id}
+              variants={cardVariants}
+              whileHover={hoverMotion}
+            >
               <div className="note-topline">
                 <span>{text(note.status, locale)}</span>
                 <strong>{String(index + 1).padStart(2, "0")}</strong>
@@ -544,12 +616,12 @@ function App() {
                   <span key={tag}>{tag}</span>
                 ))}
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
-      </section>
+        </motion.div>
+      </AnimatedSection>
 
-      <section className="contact-band" id="contact">
+      <AnimatedSection className="contact-band" id="contact">
         <div>
           <SectionHeading icon={<Target size={22} />} title={copy.contactTitle} />
           <p>{copy.contactBody}</p>
@@ -559,7 +631,7 @@ function App() {
           <Mail size={18} />
           <span>{profile.email}</span>
         </a>
-      </section>
+      </AnimatedSection>
     </main>
   );
 }
@@ -676,13 +748,16 @@ function TimelineMark({ experience }: { experience: Experience }) {
 
 function ExperienceDetail({ experience, locale }: { experience: Experience; locale: Locale }) {
   const copy = labels[locale];
+  const shouldReduceMotion = useReducedMotion();
+  const cardVariants = getCardVariants(shouldReduceMotion);
+  const hoverMotion = getHoverMotion(shouldReduceMotion);
   const orgNote = organizationNotes[experience.id] ?? {
     mark: "project" as const,
     summary: { zh: text(experience.organization, "zh"), en: text(experience.organization, "en") },
   };
 
   return (
-    <article className="experience-detail">
+    <motion.article className="experience-detail motion-card" whileHover={hoverMotion}>
       <div className="org-context">
         <OrgMark mark={orgNote.mark} locale={locale} />
         <p>{orgNote.summary[locale]}</p>
@@ -696,14 +771,27 @@ function ExperienceDetail({ experience, locale }: { experience: Experience; loca
       <p className="organization">{text(experience.organization, locale)}</p>
       <p>{text(experience.summary, locale)}</p>
       {experience.workflow && (
-        <div className="workflow-strip" aria-label={locale === "zh" ? "业务流程" : "Workflow"}>
+        <motion.div
+          className="workflow-strip"
+          aria-label={locale === "zh" ? "业务流程" : "Workflow"}
+          initial="hidden"
+          variants={staggerContainer}
+          viewport={{ once: true, amount: 0.45 }}
+          whileInView="visible"
+        >
           {experience.workflow[locale].map((step, index) => (
             <span className="workflow-segment" key={step}>
-              <span className="workflow-step">{step}</span>
-              {index < experience.workflow![locale].length - 1 && <span className="workflow-arrow">→</span>}
+              <motion.span className="workflow-step" variants={cardVariants}>
+                {step}
+              </motion.span>
+              {index < experience.workflow![locale].length - 1 && (
+                <motion.span className="workflow-arrow" variants={cardVariants}>
+                  →
+                </motion.span>
+              )}
             </span>
           ))}
-        </div>
+        </motion.div>
       )}
       <ul>
         {experience.bullets[locale].map((bullet) => (
@@ -729,7 +817,7 @@ function ExperienceDetail({ experience, locale }: { experience: Experience; loca
           </a>
         )}
       </div>
-    </article>
+    </motion.article>
   );
 }
 

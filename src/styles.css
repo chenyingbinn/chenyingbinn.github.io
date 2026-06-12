@@ -8,6 +8,10 @@
   --off-white: #f6f7f8;
   --surface: rgba(255, 255, 255, 0.88);
   --line: rgba(15, 23, 42, 0.1);
+  --motion-fast: 160ms;
+  --motion-base: 320ms;
+  --motion-slow: 620ms;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
   color: var(--ink);
   background: var(--off-white);
   font-family:
@@ -27,6 +31,14 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
   html {
     scroll-behavior: auto;
   }
@@ -57,6 +69,18 @@ button {
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
   padding: 18px 0 56px;
+}
+
+.motion-card {
+  transform-style: preserve-3d;
+  transition:
+    border-color var(--motion-base) var(--motion-ease),
+    box-shadow var(--motion-base) var(--motion-ease),
+    background-color var(--motion-base) var(--motion-ease);
+}
+
+.motion-card:hover {
+  border-color: rgba(103, 232, 249, 0.24);
 }
 
 .ambient-grid {
@@ -164,10 +188,10 @@ button {
 .filter {
   border-radius: 8px;
   transition:
-    background 180ms ease,
-    color 180ms ease,
-    border-color 180ms ease,
-    transform 180ms ease;
+    background var(--motion-fast) var(--motion-ease),
+    color var(--motion-fast) var(--motion-ease),
+    border-color var(--motion-fast) var(--motion-ease),
+    transform var(--motion-fast) var(--motion-ease);
 }
 
 .nav-links a {
@@ -221,6 +245,7 @@ button {
     0 32px 86px rgba(2, 6, 23, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
   overflow: hidden;
+  perspective: 1200px;
 }
 
 .hero::before {
@@ -386,10 +411,10 @@ h1 span + span {
   font-weight: 850;
   overflow-wrap: anywhere;
   transition:
-    transform 180ms ease,
-    box-shadow 180ms ease,
-    background 180ms ease,
-    border-color 180ms ease;
+    transform var(--motion-fast) var(--motion-ease),
+    box-shadow var(--motion-fast) var(--motion-ease),
+    background var(--motion-fast) var(--motion-ease),
+    border-color var(--motion-fast) var(--motion-ease);
 }
 
 .primary-action {
@@ -422,6 +447,7 @@ h1 span + span {
 .signal-map-card {
   align-self: center;
   transform: translate(18px, -16px);
+  transform-style: preserve-3d;
   border: 1px solid rgba(103, 232, 249, 0.1);
   border-radius: 8px;
   background:
@@ -433,6 +459,16 @@ h1 span + span {
     inset 0 1px 0 rgba(255, 255, 255, 0.04);
   overflow: hidden;
   backdrop-filter: blur(12px);
+  transition:
+    border-color var(--motion-base) var(--motion-ease),
+    box-shadow var(--motion-base) var(--motion-ease);
+}
+
+.signal-map-card:hover {
+  border-color: rgba(103, 232, 249, 0.2);
+  box-shadow:
+    0 30px 84px rgba(2, 6, 23, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .signal-map-topline {
@@ -530,10 +566,10 @@ h1 span + span {
   box-shadow: 0 12px 30px rgba(2, 6, 23, 0.16);
   backdrop-filter: blur(12px);
   transition:
-    border-color 180ms ease,
-    box-shadow 180ms ease,
-    color 180ms ease,
-    transform 180ms ease;
+    border-color var(--motion-fast) var(--motion-ease),
+    box-shadow var(--motion-fast) var(--motion-ease),
+    color var(--motion-fast) var(--motion-ease),
+    transform var(--motion-fast) var(--motion-ease);
 }
 
 .signal-node::before {
@@ -547,6 +583,7 @@ h1 span + span {
   background: rgba(103, 232, 249, 0.82);
   box-shadow: 0 0 18px rgba(103, 232, 249, 0.46);
   transform: translateX(-50%);
+  animation: signal-pulse 3.8s var(--motion-ease) infinite;
 }
 
 .signal-node:hover {
@@ -607,6 +644,21 @@ h1 span + span {
 @keyframes signal-drift {
   to {
     stroke-dashoffset: -34;
+  }
+}
+
+@keyframes signal-pulse {
+  0%,
+  100% {
+    opacity: 0.72;
+    box-shadow: 0 0 14px rgba(103, 232, 249, 0.34);
+  }
+
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 0 18px rgba(167, 243, 239, 0.52),
+      0 0 34px rgba(103, 232, 249, 0.22);
   }
 }
 
@@ -972,6 +1024,14 @@ h1 span + span {
   gap: 6px;
   color: #075985;
   font-weight: 850;
+  transition:
+    border-color var(--motion-fast) var(--motion-ease),
+    box-shadow var(--motion-fast) var(--motion-ease),
+    transform var(--motion-fast) var(--motion-ease);
+}
+
+.text-link:hover {
+  transform: translateY(-1px);
 }
 
 .publication-feature {
@@ -1032,6 +1092,15 @@ h1 span + span {
   border-radius: 999px;
   content: "";
   background: radial-gradient(circle, rgba(103, 232, 249, 0.11), transparent 66%);
+}
+
+.featured-research-card.motion-card:hover,
+.secondary-research-card.motion-card:hover,
+.contribution-card.motion-card:hover {
+  border-color: rgba(103, 232, 249, 0.24);
+  box-shadow:
+    0 28px 68px rgba(2, 6, 23, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .featured-research-card .journal-cover {
@@ -1572,6 +1641,7 @@ h1 span + span {
 .workflow-arrow {
   color: rgba(103, 232, 249, 0.68);
   font-weight: 850;
+  animation: workflow-arrow-breathe 2.8s var(--motion-ease) infinite;
 }
 
 .judgment-block {
@@ -1594,6 +1664,24 @@ h1 span + span {
 .experience-detail .judgment-block span {
   color: #d7e3ec;
   line-height: 1.65;
+}
+
+.experience-detail.motion-card:hover .judgment-block {
+  border-left-color: rgba(167, 243, 239, 0.72);
+  background: rgba(103, 232, 249, 0.075);
+}
+
+@keyframes workflow-arrow-breathe {
+  0%,
+  100% {
+    opacity: 0.48;
+    transform: translateX(0);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: translateX(2px);
+  }
 }
 
 .detail-footer {
@@ -1864,9 +1952,9 @@ h1 span + span {
     0 18px 46px rgba(2, 6, 23, 0.16);
   overflow: hidden;
   transition:
-    border-color 180ms ease,
-    transform 180ms ease,
-    box-shadow 180ms ease;
+    border-color var(--motion-fast) var(--motion-ease),
+    transform var(--motion-fast) var(--motion-ease),
+    box-shadow var(--motion-fast) var(--motion-ease);
 }
 
 .note-card::before {
@@ -2104,6 +2192,14 @@ h1 span + span {
     radial-gradient(circle at 84% 18%, rgba(103, 232, 249, 0.14), transparent 18rem),
     linear-gradient(120deg, #0b1220, #12343d 62%, #0f766e);
   color: #ffffff;
+  transition:
+    border-color var(--motion-base) var(--motion-ease),
+    box-shadow var(--motion-base) var(--motion-ease);
+}
+
+.contact-band:hover {
+  border-color: rgba(103, 232, 249, 0.24);
+  box-shadow: 0 26px 70px rgba(2, 6, 23, 0.18);
 }
 
 .contact-band .section-heading {
