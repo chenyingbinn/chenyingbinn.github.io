@@ -301,12 +301,27 @@ function App() {
           </div>
           {profile.education.facts.length > 0 && (
             <div className="fact-grid">
-              {profile.education.facts.map((fact) => (
-                <div className="fact" key={fact.value}>
-                  <span>{text(fact.label, locale)}</span>
-                  <strong>{fact.value}</strong>
-                </div>
-              ))}
+              {profile.education.facts.map((fact) => {
+                const focusItems = fact.value.split(" × ");
+
+                return (
+                  <div className="fact education-focus-panel" key={fact.value}>
+                    <span>{text(fact.label, locale)}</span>
+                    {focusItems.length > 1 ? (
+                      <div className="focus-chip-list" aria-label={fact.value}>
+                        {focusItems.map((item, index) => (
+                          <span className="focus-chip" key={item}>
+                            {index > 0 && <i aria-hidden="true">×</i>}
+                            <b>{item}</b>
+                          </span>
+                        ))}
+                      </div>
+                    ) : (
+                      <strong>{fact.value}</strong>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
