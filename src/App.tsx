@@ -346,7 +346,14 @@ function App() {
             {featuredPublication.publicationMeta && (
               <div className="publication-meta" aria-label={locale === "zh" ? "论文信息" : "Publication information"}>
                 {featuredPublication.publicationMeta.map((item) => (
-                  <div className="publication-meta-item" key={text(item.label, locale)}>
+                  <div
+                    className={
+                      text(item.label, "en") === "CRediT"
+                        ? "publication-meta-item publication-meta-item--wide"
+                        : "publication-meta-item"
+                    }
+                    key={text(item.label, locale)}
+                  >
                     <span>{text(item.label, locale)}</span>
                     <strong>{text(item.value, locale)}</strong>
                   </div>

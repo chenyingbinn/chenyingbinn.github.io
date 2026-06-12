@@ -914,6 +914,10 @@ h1 span + span {
   background: rgba(7, 16, 31, 0.58);
 }
 
+.publication-meta-item--wide {
+  grid-column: 1 / -1;
+}
+
 .publication-meta-item span {
   display: block;
   margin-bottom: 5px;
