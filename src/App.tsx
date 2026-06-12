@@ -32,13 +32,13 @@ const chapterCopy = {
     fieldLabel: "Chapter 03 / 实践路径",
     fieldTitle: "Practice Path / 实践路径",
     fieldDeck: "把支付清结算、数据产品运营、风险识别与研究经历放在同一条实践路径中，观察数据如何进入真实业务现场。",
-    notesLabel: "Chapter 04 / 思考档案",
+    capabilitiesLabel: "Chapter 04 / 能力结构",
+    capabilitiesTitle: "Capability Map / 能力结构",
+    capabilitiesDeck: "把研究与实践经历归纳为建模分析、金融业务理解、数据产品判断和研究表达四组能力。",
+    notesLabel: "Chapter 05 / 思考档案",
     notesTitle: "Thinking Archive / 思考档案",
     notesDeck:
       "一些关于金融、数据、AI、职业叙事与产品观察的短札。它们不是履历补充，而是我整理经验、形成判断的方式。",
-    capabilitiesLabel: "Chapter 05 / 能力结构",
-    capabilitiesTitle: "Capability Map + Contact",
-    capabilitiesDeck: "用能力结构、外部认可和邮箱入口，收束到可以继续交流与合作的地方。",
   },
   en: {
     academicLabel: "Chapter 02 / Academic Grounding",
@@ -49,13 +49,14 @@ const chapterCopy = {
     fieldTitle: "Practice Path",
     fieldDeck:
       "Connecting payment reconciliation, data product operations, risk identification, and research experience into one practice path.",
-    notesLabel: "Chapter 04 / Thinking Archive",
+    capabilitiesLabel: "Chapter 04 / Capability Map",
+    capabilitiesTitle: "Capability Map",
+    capabilitiesDeck:
+      "A capability model synthesized from research and practice: modeling, finance operations, data products, and research communication.",
+    notesLabel: "Chapter 05 / Thinking Archive",
     notesTitle: "Thinking Archive",
     notesDeck:
       "Short notes on finance, data, AI, career narrative, and product observation. They show how I organize experience into judgment.",
-    capabilitiesLabel: "Chapter 05 / Capability Map",
-    capabilitiesTitle: "Capability Map + Contact",
-    capabilitiesDeck: "A final layer of capabilities, recognition, and contact for continuing the conversation.",
   },
 } satisfies Record<Locale, Record<string, string>>;
 
@@ -66,6 +67,7 @@ const heroContent = {
     subtitle: "我关注金融系统、数据模型与人的判断如何共同影响真实商业决策。",
     intro:
       "会计与金融基础、机器学习研究、跨境支付清结算和数据产品运营经验，共同构成我理解商业决策的一条线索。",
+    positioningLine: "以会计金融为基础，持续向金融科技、数据产品、商业分析与财务数据分析方向延展。",
     tags: ["FinTech", "Business Analytics", "Data-driven Finance", "Accounting x AI", "Research & Product Thinking"],
     portfolio: "Personal Portfolio",
     positioning: "Finance / Data / AI",
@@ -82,6 +84,8 @@ const heroContent = {
     subtitle: "I explore how financial systems, data models, and human decisions interact in real business contexts.",
     intro:
       "My work connects accounting and finance foundations with machine learning research, cross-border payment reconciliation, and data product operations.",
+    positioningLine:
+      "Grounded in accounting and finance, extending toward FinTech, data products, business analytics, and financial data analysis.",
     tags: ["FinTech", "Business Analytics", "Data-driven Finance", "Accounting x AI", "Research & Product Thinking"],
     portfolio: "Personal Portfolio",
     positioning: "Finance / Data / AI",
@@ -175,6 +179,21 @@ function experienceKindLabel(kind: ExperienceKind, locale: Locale) {
   return labelsByKind[kind][locale];
 }
 
+function splitContribution(bullet: string) {
+  const separator = bullet.includes("：") ? "：" : bullet.includes(":") ? ":" : "";
+
+  if (!separator) {
+    return { title: "", body: bullet };
+  }
+
+  const [title, ...bodyParts] = bullet.split(separator);
+
+  return {
+    title: title.trim(),
+    body: bodyParts.join(separator).trim(),
+  };
+}
+
 function App() {
   const [locale, setLocale] = useState<Locale>("zh");
   const [activeFilter, setActiveFilter] = useState<FilterKind>("all");
@@ -238,6 +257,7 @@ function App() {
           </h1>
           <p className="headline">{hero.subtitle}</p>
           <p className="intro">{hero.intro}</p>
+          <p className="positioning-line">{hero.positioningLine}</p>
           <div className="identity-tags" aria-label="Portfolio focus areas">
             {hero.tags.map((tag) => (
               <span key={tag}>{tag}</span>
@@ -323,17 +343,34 @@ function App() {
             </div>
             <h2>{text(featuredPublication.title, locale)}</h2>
             <p>{text(featuredPublication.summary, locale)}</p>
+            {featuredPublication.publicationMeta && (
+              <div className="publication-meta" aria-label={locale === "zh" ? "论文信息" : "Publication information"}>
+                {featuredPublication.publicationMeta.map((item) => (
+                  <div className="publication-meta-item" key={text(item.label, locale)}>
+                    <span>{text(item.label, locale)}</span>
+                    <strong>{text(item.value, locale)}</strong>
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="contribution-grid">
               {["FOF", "XGBoost", "SHAP", "Asset Allocation", "Explainable AI"].map((item) => (
                 <span key={item}>{item}</span>
               ))}
             </div>
             <h3>{locale === "zh" ? "我的贡献" : "My Contribution"}</h3>
-            <ul className="publication-list">
-              {(featuredPublication.contribution?.[locale] ?? featuredPublication.bullets[locale]).map((bullet) => (
-                <li key={bullet}>{bullet}</li>
-              ))}
-            </ul>
+            <div className="contribution-card-grid">
+              {(featuredPublication.contribution?.[locale] ?? featuredPublication.bullets[locale]).map((bullet) => {
+                const contribution = splitContribution(bullet);
+
+                return (
+                  <article className="contribution-card" key={bullet}>
+                    {contribution.title && <h4>{contribution.title}</h4>}
+                    <p>{contribution.body}</p>
+                  </article>
+                );
+              })}
+            </div>
             {featuredPublication.researchSignal && (
               <p className="research-signal">{text(featuredPublication.researchSignal, locale)}</p>
             )}
@@ -416,6 +453,43 @@ function App() {
         </div>
       </section>
 
+      <section className="portfolio-chapter chapter-capabilities" id="capabilities">
+        <ChapterIntro
+          label={chapter.capabilitiesLabel}
+          title={chapter.capabilitiesTitle}
+          deck={chapter.capabilitiesDeck}
+        />
+
+      <section className="section-band" id="skills">
+        <SectionHeading icon={<Network size={22} />} title={copy.skills} />
+        <div className="skills-grid">
+          {profile.skillGroups.map((group) => (
+            <article className="skill-group" key={text(group.name, locale)}>
+              <h3>{text(group.name, locale)}</h3>
+              <div className="skill-tags">
+                {group.items[locale].map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-band honors-band" id="honors">
+        <SectionHeading icon={<Medal size={22} />} title={copy.honors} />
+        <div className="honor-list">
+          {profile.honors.map((honor) => (
+            <article className="honor" key={honor[locale]}>
+              <Medal size={18} />
+              <span>{honor[locale]}</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      </section>
+
       <section className="portfolio-chapter chapter-notes section-band" id="notes">
         <ChapterIntro label={chapter.notesLabel} title={chapter.notesTitle} deck={chapter.notesDeck} />
         <div className="notes-grid" aria-label={chapter.notesTitle}>
@@ -453,41 +527,6 @@ function App() {
         </div>
       </section>
 
-      <section className="portfolio-chapter chapter-capabilities" id="capabilities">
-        <ChapterIntro
-          label={chapter.capabilitiesLabel}
-          title={chapter.capabilitiesTitle}
-          deck={chapter.capabilitiesDeck}
-        />
-
-      <section className="section-band" id="skills">
-        <SectionHeading icon={<Network size={22} />} title={copy.skills} />
-        <div className="skills-grid">
-          {profile.skillGroups.map((group) => (
-            <article className="skill-group" key={text(group.name, locale)}>
-              <h3>{text(group.name, locale)}</h3>
-              <div className="skill-tags">
-                {group.items.map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section-band honors-band" id="honors">
-        <SectionHeading icon={<Medal size={22} />} title={copy.honors} />
-        <div className="honor-list">
-          {profile.honors.map((honor) => (
-            <article className="honor" key={honor[locale]}>
-              <Medal size={18} />
-              <span>{honor[locale]}</span>
-            </article>
-          ))}
-        </div>
-      </section>
-
       <section className="contact-band" id="contact">
         <div>
           <SectionHeading icon={<Target size={22} />} title={copy.contactTitle} />
@@ -498,7 +537,6 @@ function App() {
           <Mail size={18} />
           <span>{profile.email}</span>
         </a>
-      </section>
       </section>
     </main>
   );
@@ -635,11 +673,27 @@ function ExperienceDetail({ experience, locale }: { experience: Experience; loca
       <h2>{text(experience.title, locale)}</h2>
       <p className="organization">{text(experience.organization, locale)}</p>
       <p>{text(experience.summary, locale)}</p>
+      {experience.workflow && (
+        <div className="workflow-strip" aria-label={locale === "zh" ? "业务流程" : "Workflow"}>
+          {experience.workflow[locale].map((step, index) => (
+            <span className="workflow-segment" key={step}>
+              <span className="workflow-step">{step}</span>
+              {index < experience.workflow![locale].length - 1 && <span className="workflow-arrow">→</span>}
+            </span>
+          ))}
+        </div>
+      )}
       <ul>
         {experience.bullets[locale].map((bullet) => (
           <li key={bullet}>{bullet}</li>
         ))}
       </ul>
+      {experience.judgment && (
+        <p className="judgment-block">
+          <strong>{locale === "zh" ? "判断" : "Judgment"}</strong>
+          <span>{text(experience.judgment, locale)}</span>
+        </p>
+      )}
       <div className="detail-footer">
         <div className="tag-row">
           {experience.tags.map((tag) => (

@@ -13,15 +13,21 @@ export interface Experience {
   period: Localized;
   summary: Localized;
   bullets: Record<Locale, string[]>;
+  publicationMeta?: Array<{
+    label: Localized;
+    value: Localized;
+  }>;
   contribution?: Record<Locale, string[]>;
   researchSignal?: Localized;
+  workflow?: Record<Locale, string[]>;
+  judgment?: Localized;
   tags: string[];
   link?: string;
 }
 
 export interface SkillGroup {
   name: Localized;
-  items: string[];
+  items: Record<Locale, string[]>;
 }
 
 export interface Note {
@@ -146,6 +152,31 @@ export const profile = {
           "Research writing and methodology: Drafted and refined content related to the machine learning workflow, visualizations, empirical validation, and financial interpretation, aligned with the paper’s CRediT role: Writing – original draft, Visualization, Software, Methodology.",
         ],
       },
+      publicationMeta: [
+        {
+          label: { zh: "期刊", en: "Journal" },
+          value: { zh: "Pacific-Basin Finance Journal", en: "Pacific-Basin Finance Journal" },
+        },
+        {
+          label: { zh: "状态", en: "Status" },
+          value: { zh: "Published / 2026", en: "Published / 2026" },
+        },
+        {
+          label: { zh: "作者角色", en: "Role" },
+          value: { zh: "第三作者", en: "Third author" },
+        },
+        {
+          label: { zh: "方法", en: "Methods" },
+          value: { zh: "XGBoost · SHAP · SMOTE · FOF 筛选", en: "XGBoost · SHAP · SMOTE · FOF selection" },
+        },
+        {
+          label: { zh: "CRediT", en: "CRediT" },
+          value: {
+            zh: "Original draft · Visualization · Software · Methodology",
+            en: "Original draft · Visualization · Software · Methodology",
+          },
+        },
+      ],
       contribution: {
         zh: [
           "机器学习实现：实现并调试 Logistic Regression、Decision Tree、Random Forest、XGBoost、ANN 与 LSTM 六类模型，完成训练、验证、指标比较与结果可视化。",
@@ -238,6 +269,14 @@ export const profile = {
         ],
       },
       tags: ["Reconciliation", "Cross-border Payment", "Finance Ops"],
+      workflow: {
+        zh: ["渠道文件", "资金流", "系统交易", "入账文件", "异常跟进"],
+        en: ["Channel files", "Fund flows", "System records", "Entry files", "Exception follow-up"],
+      },
+      judgment: {
+        zh: "清结算不是简单核数，而是资金流、信息流和责任边界的对齐。",
+        en: "Reconciliation is not simply checking numbers; it is the alignment of fund flows, information flows, and responsibility boundaries.",
+      },
     },
     {
       id: "sde",
@@ -275,6 +314,14 @@ export const profile = {
         ],
       },
       tags: ["Python", "Data Products", "Market Analysis"],
+      workflow: {
+        zh: ["客户需求", "字段/API", "文档优化", "产品同步", "机会识别"],
+        en: ["Customer needs", "Fields & APIs", "Documentation", "Product sync", "Opportunity signals"],
+      },
+      judgment: {
+        zh: "数据产品的价值不只在字段丰富，而在于能否匹配真实交付场景。",
+        en: "The value of a data product is not only in having rich fields, but in whether it fits real delivery scenarios.",
+      },
     },
     {
       id: "risk-id",
@@ -312,24 +359,64 @@ export const profile = {
         ],
       },
       tags: ["Risk Control", "Product Design", "Model Evaluation"],
+      workflow: {
+        zh: ["风险场景", "特征构建", "模型比较", "指标解释", "风控闭环"],
+        en: ["Risk scenario", "Feature design", "Model comparison", "Metric interpretation", "Risk-control loop"],
+      },
+      judgment: {
+        zh: "模型指标必须回到审核成本、误杀风险和业务资源约束中解释。",
+        en: "Model metrics need to be interpreted through review costs, false-positive risks, and business resource constraints.",
+      },
     },
   ] satisfies Experience[],
   skillGroups: [
     {
-      name: { zh: "数据与建模", en: "Data & Modeling" },
-      items: ["Python", "pandas", "matplotlib", "SQL", "MySQL", "XGBoost", "SHAP", "Feature Engineering"],
+      name: { zh: "建模与分析", en: "Modeling & Analytics" },
+      items: {
+        zh: ["Python 数据分析", "机器学习建模", "XGBoost / SHAP", "模型评估与结果可视化"],
+        en: [
+          "Python-based data analysis",
+          "Machine learning modeling",
+          "XGBoost / SHAP",
+          "Model evaluation and visualization",
+        ],
+      },
     },
     {
-      name: { zh: "财务与分析", en: "Finance & Analytics" },
-      items: ["Reconciliation", "Excel", "Pivot Tables", "Business Analytics", "Empirical Research"],
+      name: { zh: "金融业务理解", en: "Finance & Operations" },
+      items: {
+        zh: ["会计与金融基础", "跨境支付清结算", "资金流与信息流核对", "风控与反欺诈场景"],
+        en: [
+          "Accounting and finance foundations",
+          "Cross-border payment reconciliation",
+          "Fund-flow and information-flow checks",
+          "Risk control and anti-fraud scenarios",
+        ],
+      },
     },
     {
-      name: { zh: "研究与工具", en: "Research & Tools" },
-      items: ["Literature Review", "Academic Writing", "Case Analysis", "ChatGPT", "Claude", "Kimi", "Cursor"],
+      name: { zh: "数据产品与业务判断", en: "Data Product & Business Judgment" },
+      items: {
+        zh: ["客户需求整理", "字段与 API 说明优化", "数据产品运营", "业务场景到数据机会识别"],
+        en: [
+          "Customer demand structuring",
+          "Field and API documentation refinement",
+          "Data product operations",
+          "Translating business scenarios into data opportunities",
+        ],
+      },
     },
     {
-      name: { zh: "语言能力", en: "Languages" },
-      items: ["Mandarin Native", "English academic reading & writing"],
+      name: { zh: "研究表达", en: "Research Communication" },
+      items: {
+        zh: ["文献阅读与方法整理", "实证结果验证", "学术可视化", "English academic reading & writing"],
+        en: [
+          "Literature reading and methodology synthesis",
+          "Empirical result validation",
+          "Academic visualization",
+          "English academic reading & writing",
+        ],
+      },
     },
   ] satisfies SkillGroup[],
   honors: [
@@ -428,7 +515,7 @@ export const profile = {
 
 export const labels = {
   zh: {
-    nav: ["概览", "研究", "经历", "能力", "思考", "联系"],
+    nav: ["概览", "研究", "实践路径", "能力结构", "思考档案", "联系"],
     language: "EN",
     contact: "邮件联系",
     education: "学术根基",
@@ -450,7 +537,7 @@ export const labels = {
     privacy: "公开页面仅展示邮箱，不包含其他个人敏感材料或完整简历文件。",
   },
   en: {
-    nav: ["Overview", "Research", "Experience", "Capabilities", "Notes", "Contact"],
+    nav: ["Overview", "Research", "Practice Path", "Capability Map", "Thinking Archive", "Contact"],
     language: "中",
     contact: "Email me",
     education: "Academic Grounding",

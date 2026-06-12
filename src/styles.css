@@ -337,6 +337,18 @@ h1 span + span {
   overflow-wrap: anywhere;
 }
 
+.positioning-line {
+  max-width: 620px;
+  margin: 4px 0 0;
+  border-left: 2px solid rgba(103, 232, 249, 0.46);
+  padding-left: 12px;
+  color: #d7eef3;
+  font-size: 0.95rem;
+  font-weight: 680;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
 .identity-tags {
   display: flex;
   flex-wrap: wrap;
@@ -885,6 +897,71 @@ h1 span + span {
   line-height: 1.72;
 }
 
+.publication-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 18px 0;
+  border: 1px solid rgba(103, 232, 249, 0.14);
+  border-radius: 8px;
+  background: rgba(103, 232, 249, 0.12);
+  overflow: hidden;
+}
+
+.publication-meta-item {
+  min-width: 0;
+  padding: 12px 13px;
+  background: rgba(7, 16, 31, 0.58);
+}
+
+.publication-meta-item span {
+  display: block;
+  margin-bottom: 5px;
+  color: #a7f3ef;
+  font-size: 0.72rem;
+  font-weight: 820;
+  text-transform: uppercase;
+}
+
+.publication-meta-item strong {
+  display: block;
+  color: #e8f6f8;
+  font-size: 0.9rem;
+  font-weight: 720;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.contribution-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.contribution-card {
+  min-width: 0;
+  border: 1px solid rgba(103, 232, 249, 0.13);
+  border-radius: 8px;
+  background: rgba(248, 250, 252, 0.055);
+  padding: 13px 14px;
+}
+
+.contribution-card h4 {
+  margin: 0 0 8px;
+  color: #a7f3ef;
+  font-size: 0.86rem;
+  font-weight: 850;
+  line-height: 1.3;
+}
+
+.contribution-card p {
+  margin: 0;
+  color: rgba(226, 236, 245, 0.88);
+  font-size: 0.92rem;
+  line-height: 1.62;
+}
+
 .text-link {
   display: inline-flex;
   align-items: center;
@@ -1406,6 +1483,65 @@ h1 span + span {
   margin-top: 8px;
 }
 
+.workflow-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 6px;
+  align-items: center;
+  margin: 18px 0;
+  border: 1px solid rgba(103, 232, 249, 0.13);
+  border-radius: 8px;
+  background: rgba(103, 232, 249, 0.055);
+  padding: 11px;
+}
+
+.workflow-segment {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.workflow-step {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  border: 1px solid rgba(103, 232, 249, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  padding: 6px 10px;
+  color: #e3f8fb;
+  font-size: 0.84rem;
+  font-weight: 760;
+  line-height: 1.25;
+}
+
+.workflow-arrow {
+  color: rgba(103, 232, 249, 0.68);
+  font-weight: 850;
+}
+
+.judgment-block {
+  display: grid;
+  gap: 7px;
+  margin: 20px 0 0;
+  border-left: 2px solid rgba(103, 232, 249, 0.5);
+  border-radius: 8px;
+  background: rgba(103, 232, 249, 0.055);
+  padding: 12px 14px;
+}
+
+.experience-detail .judgment-block strong {
+  color: #a7f3ef;
+  font-size: 0.82rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.experience-detail .judgment-block span {
+  color: #d7e3ec;
+  line-height: 1.65;
+}
+
 .detail-footer {
   display: flex;
   flex-wrap: wrap;
@@ -1812,47 +1948,72 @@ h1 span + span {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
+  counter-reset: skill-card;
 }
 
 .skill-group {
+  position: relative;
   min-height: 190px;
-  padding: 18px;
+  padding: 18px 18px 20px;
   border-color: rgba(15, 118, 110, 0.12);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(248, 250, 252, 0.76)),
     rgba(255, 255, 255, 0.82);
   box-shadow: 0 14px 34px rgba(15, 23, 42, 0.055);
+  counter-increment: skill-card;
+  overflow: hidden;
+}
+
+.skill-group::before {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: rgba(15, 118, 110, 0.18);
+  content: "0" counter(skill-card);
+  font-size: 1rem;
+  font-weight: 900;
 }
 
 .skill-group h3 {
-  margin-bottom: 14px;
+  max-width: calc(100% - 34px);
+  margin-bottom: 16px;
   color: #0f172a;
-  font-size: 1.04rem;
+  font-size: 1.08rem;
   line-height: 1.25;
 }
 
 .skill-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  display: grid;
+  gap: 9px;
 }
 
 .skill-tags span {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  min-height: 30px;
-  padding: 6px 9px;
-  border: 1px solid rgba(15, 118, 110, 0.14);
-  border-radius: 999px;
-  background: rgba(15, 118, 110, 0.065);
+  gap: 8px;
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: #0f172a;
-  font-size: 0.9rem;
-  font-weight: 750;
+  font-size: 0.92rem;
+  font-weight: 690;
+  line-height: 1.45;
+}
+
+.skill-tags span::before {
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #0f766e;
+  content: "";
+  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.08);
 }
 
 .skill-tags span:hover {
-  border-color: rgba(103, 232, 249, 0.3);
-  background: rgba(103, 232, 249, 0.09);
+  color: #0f766e;
 }
 
 .honor-list {
@@ -1947,6 +2108,10 @@ h1 span + span {
 
   .featured-research-card .publication-content {
     padding: 0;
+  }
+
+  .contribution-card-grid {
+    grid-template-columns: 1fr;
   }
 
   .hero {
@@ -2161,6 +2326,28 @@ h1 span + span {
 
   .featured-research-card {
     padding: 16px;
+  }
+
+  .publication-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .publication-meta-item {
+    padding: 11px 12px;
+  }
+
+  .workflow-strip {
+    padding: 10px;
+  }
+
+  .workflow-step {
+    max-width: 100%;
+    font-size: 0.8rem;
+    overflow-wrap: anywhere;
+  }
+
+  .workflow-arrow {
+    font-size: 0.86rem;
   }
 
   .secondary-research-card {
