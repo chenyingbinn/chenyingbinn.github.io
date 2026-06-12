@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import {
   ArrowUpRight,
   BarChart3,
@@ -18,6 +18,9 @@ import {
   Target,
 } from "lucide-react";
 import { AnimatedSection } from "./components/AnimatedSection";
+import { ScrollSignal } from "./components/ScrollSignal";
+import { SignalField } from "./components/SignalField";
+import { usePointerParallax } from "./hooks/usePointerParallax";
 import { getCardVariants, getHoverMotion, staggerContainer } from "./motion";
 import { Experience, ExperienceKind, labels, Locale, profile } from "./profile";
 
@@ -202,8 +205,25 @@ function App() {
   const [activeFilter, setActiveFilter] = useState<FilterKind>("all");
   const [activeExperienceId, setActiveExperienceId] = useState("photonpay");
   const shouldReduceMotion = useReducedMotion();
+  const heroRef = useRef<HTMLElement>(null);
+  const academicRef = useRef<HTMLElement>(null);
+  const practiceRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll();
+  const { scrollYProgress: academicProgress } = useScroll({
+    target: academicRef,
+    offset: ["start 92%", "end 18%"],
+  });
+  const { scrollYProgress: practiceProgress } = useScroll({
+    target: practiceRef,
+    offset: ["start 92%", "end 18%"],
+  });
+  const environmentY = useTransform(scrollYProgress, [0, 1], [0, -180]);
+  const environmentOpacity = useTransform(scrollYProgress, [0, 0.18, 0.72, 1], [0.95, 1, 0.82, 0.72]);
+  const academicDrift = useTransform(academicProgress, [0, 1], [12, -12]);
+  const practiceDrift = useTransform(practiceProgress, [0, 1], [10, -14]);
   const cardVariants = getCardVariants(shouldReduceMotion);
   const hoverMotion = getHoverMotion(shouldReduceMotion);
+  usePointerParallax(heroRef, shouldReduceMotion);
 
   const copy = labels[locale];
   const hero = heroContent[locale];
@@ -223,7 +243,19 @@ function App() {
 
   return (
     <main className="site-shell">
-      <div className="ambient-grid" aria-hidden="true" />
+      <motion.div
+        className="site-environment"
+        aria-hidden="true"
+        style={shouldReduceMotion ? undefined : { opacity: environmentOpacity, y: environmentY }}
+      >
+        <span className="ambient-glow glow-a" />
+        <span className="ambient-glow glow-b" />
+        <span className="ambient-glow glow-c" />
+        <span className="ambient-grid" />
+        <span className="ambient-signal-line line-one" />
+        <span className="ambient-signal-line line-two" />
+      </motion.div>
+      <ScrollSignal progress={scrollYProgress} />
       <header className="topbar">
         <a className="brand-mark" href="#overview" aria-label="Yingbin Chen portfolio home">
           <img className="brand-mark-image" src={assetPath("favicon.svg")} alt="" aria-hidden="true" />
@@ -251,7 +283,8 @@ function App() {
         </button>
       </header>
 
-      <AnimatedSection className="hero portfolio-chapter chapter-opening" id="overview">
+      <AnimatedSection className="hero portfolio-chapter chapter-opening" id="overview" ref={heroRef}>
+        <SignalField />
         <motion.div className="hero-copy" variants={staggerContainer}>
           <div className="eyebrow">
             <Sparkles size={16} />
@@ -291,7 +324,12 @@ function App() {
 
       </AnimatedSection>
 
-      <AnimatedSection className="portfolio-chapter chapter-academic" id="academic-research">
+      <AnimatedSection
+        className="portfolio-chapter chapter-academic"
+        id="academic-research"
+        ref={academicRef}
+        style={shouldReduceMotion ? undefined : { y: academicDrift }}
+      >
         <ChapterIntro label={chapter.academicLabel} title={chapter.academicTitle} deck={chapter.academicDeck} />
 
       <section className="section-band education-band">
@@ -355,7 +393,7 @@ function App() {
           className="research-showcase"
           initial="hidden"
           variants={staggerContainer}
-          viewport={{ once: true, amount: 0.16 }}
+          viewport={{ once: true, amount: 0.08, margin: "0px 0px -8% 0px" }}
           whileInView="visible"
         >
         <motion.article
@@ -382,7 +420,7 @@ function App() {
                 aria-label={locale === "zh" ? "论文信息" : "Publication information"}
                 initial="hidden"
                 variants={staggerContainer}
-                viewport={{ once: true, amount: 0.35 }}
+                viewport={{ once: true, amount: 0.12, margin: "0px 0px -8% 0px" }}
                 whileInView="visible"
               >
                 {featuredPublication.publicationMeta.map((item) => (
@@ -411,7 +449,7 @@ function App() {
               className="contribution-card-grid"
               initial="hidden"
               variants={staggerContainer}
-              viewport={{ once: true, amount: 0.24 }}
+              viewport={{ once: true, amount: 0.1, margin: "0px 0px -8% 0px" }}
               whileInView="visible"
             >
               {(featuredPublication.contribution?.[locale] ?? featuredPublication.bullets[locale]).map((bullet) => {
@@ -435,7 +473,7 @@ function App() {
                 className="research-signal"
                 initial="hidden"
                 variants={cardVariants}
-                viewport={{ once: true, amount: 0.4 }}
+                viewport={{ once: true, amount: 0.12, margin: "0px 0px -8% 0px" }}
                 whileInView="visible"
               >
                 {text(featuredPublication.researchSignal, locale)}
@@ -475,7 +513,12 @@ function App() {
       </section>
       </AnimatedSection>
 
-      <AnimatedSection className="portfolio-chapter chapter-field section-band" id="experience">
+      <AnimatedSection
+        className="portfolio-chapter chapter-field section-band"
+        id="experience"
+        ref={practiceRef}
+        style={shouldReduceMotion ? undefined : { y: practiceDrift }}
+      >
         <ChapterIntro label={chapter.fieldLabel} title={chapter.fieldTitle} deck={chapter.fieldDeck} compact />
         <div className="section-header-row">
           <div>
@@ -508,7 +551,7 @@ function App() {
           </div>
         </div>
 
-        <div className="experience-layout">
+        <motion.div className="experience-layout">
           <div className="timeline-list">
             {filteredExperiences.map((experience) => (
               <ExperienceButton
@@ -521,7 +564,7 @@ function App() {
             ))}
           </div>
           <ExperienceDetail key={`${activeExperience.id}-${locale}`} experience={activeExperience} locale={locale} />
-        </div>
+        </motion.div>
       </AnimatedSection>
 
       <AnimatedSection className="portfolio-chapter chapter-capabilities" id="capabilities">
@@ -537,7 +580,7 @@ function App() {
           className="skills-grid"
           initial="hidden"
           variants={staggerContainer}
-          viewport={{ once: true, amount: 0.18 }}
+          viewport={{ once: true, amount: 0.1, margin: "0px 0px -8% 0px" }}
           whileInView="visible"
         >
           {profile.skillGroups.map((group) => (
@@ -579,7 +622,7 @@ function App() {
           aria-label={chapter.notesTitle}
           initial="hidden"
           variants={staggerContainer}
-          viewport={{ once: true, amount: 0.18 }}
+          viewport={{ once: true, amount: 0.1, margin: "0px 0px -8% 0px" }}
           whileInView="visible"
         >
           {profile.notes.map((note, index) => (
@@ -756,7 +799,13 @@ function ExperienceDetail({ experience, locale }: { experience: Experience; loca
   };
 
   return (
-    <motion.article className="experience-detail motion-card" whileHover={hoverMotion}>
+    <motion.article
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      className="experience-detail motion-card"
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0.96, scale: 0.996, y: 8 }}
+      transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={hoverMotion}
+    >
       <div className="org-context">
         <OrgMark mark={orgNote.mark} locale={locale} />
         <p>{orgNote.summary[locale]}</p>

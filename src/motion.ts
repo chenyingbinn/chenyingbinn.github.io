@@ -6,7 +6,7 @@ export const motionTiming = {
 } as const;
 
 export const sectionReveal = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0.88, y: 10 },
   visible: {
     opacity: 1,
     y: 0,
@@ -18,7 +18,7 @@ export const sectionReveal = {
 } as const;
 
 export const reducedSectionReveal = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 1 },
   visible: {
     opacity: 1,
     transition: {
@@ -32,14 +32,14 @@ export const staggerContainer = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.07,
-      delayChildren: 0.04,
+      staggerChildren: 0.045,
+      delayChildren: 0.015,
     },
   },
 } as const;
 
 export const cardReveal = {
-  hidden: { opacity: 0, y: 20, scale: 0.98 },
+  hidden: { opacity: 0.92, y: 10, scale: 0.99 },
   visible: {
     opacity: 1,
     y: 0,
@@ -52,7 +52,7 @@ export const cardReveal = {
 } as const;
 
 export const reducedCardReveal = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 1 },
   visible: {
     opacity: 1,
     transition: {
@@ -63,8 +63,8 @@ export const reducedCardReveal = {
 } as const;
 
 export const subtleHover = {
-  y: -4,
-  scale: 1.01,
+  y: -5,
+  scale: 1.012,
   transition: {
     duration: motionTiming.fast,
     ease: motionTiming.ease,
