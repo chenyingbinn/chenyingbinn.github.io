@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import {
@@ -18,6 +18,7 @@ import {
   Target,
 } from "lucide-react";
 import { AnimatedSection } from "./components/AnimatedSection";
+import { NarrativeBridge } from "./components/NarrativeBridge";
 import { ScrollSignal } from "./components/ScrollSignal";
 import { SignalField } from "./components/SignalField";
 import { usePointerParallax } from "./hooks/usePointerParallax";
@@ -225,6 +226,25 @@ function App() {
   const hoverMotion = getHoverMotion(shouldReduceMotion);
   usePointerParallax(heroRef, shouldReduceMotion);
 
+  useEffect(() => {
+    const scrollToHash = () => {
+      const targetId = window.location.hash.slice(1);
+      if (!targetId) return;
+
+      const scrollToTarget = () => {
+        document.getElementById(decodeURIComponent(targetId))?.scrollIntoView({ block: "start" });
+      };
+
+      window.requestAnimationFrame(scrollToTarget);
+      window.setTimeout(scrollToTarget, 120);
+    };
+
+    scrollToHash();
+    window.addEventListener("hashchange", scrollToHash);
+
+    return () => window.removeEventListener("hashchange", scrollToHash);
+  }, []);
+
   const copy = labels[locale];
   const hero = heroContent[locale];
   const chapter = chapterCopy[locale];
@@ -283,7 +303,7 @@ function App() {
         </button>
       </header>
 
-      <AnimatedSection className="hero portfolio-chapter chapter-opening" id="overview" ref={heroRef}>
+      <AnimatedSection className="hero hero-stage portfolio-chapter chapter-opening" id="overview" ref={heroRef}>
         <SignalField />
         <motion.div className="hero-copy" variants={staggerContainer}>
           <div className="eyebrow">
@@ -321,8 +341,12 @@ function App() {
         </motion.div>
 
         <SignalMap locale={locale} />
+        <div className="hero-scroll-cue" aria-hidden="true">
+          <span />
+        </div>
 
       </AnimatedSection>
+      <NarrativeBridge locale={locale} />
 
       <AnimatedSection
         className="portfolio-chapter chapter-academic"

@@ -7,6 +7,8 @@ const fieldNodes = [
   { className: "signal-field-node node-d" },
   { className: "signal-field-node node-e" },
   { className: "signal-field-node node-f" },
+  { className: "signal-field-node node-g" },
+  { className: "signal-field-node node-h" },
 ];
 
 export function SignalField() {
@@ -27,6 +29,9 @@ export function SignalField() {
       <span className="signal-field-line line-a" />
       <span className="signal-field-line line-b" />
       <span className="signal-field-line line-c" />
+      <span className="signal-field-line line-d" />
+      <span className="signal-field-arc arc-a" />
+      <span className="signal-field-arc arc-b" />
       {fieldNodes.map((node) => (
         <span className={node.className} key={node.className} />
       ))}

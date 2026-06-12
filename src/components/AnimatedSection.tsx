@@ -23,7 +23,7 @@ export const AnimatedSection = forwardRef<HTMLElement, AnimatedSectionProps>(fun
       ref={ref}
       style={style}
       variants={getRevealVariants(shouldReduceMotion)}
-      viewport={{ once: true, amount: 0.1, margin: "0px 0px -8% 0px" }}
+      viewport={{ once: true, amount: 0.08, margin: "0px 0px -12% 0px" }}
       whileInView="visible"
     >
       {children}
