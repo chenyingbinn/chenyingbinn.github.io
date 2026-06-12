@@ -8,3 +8,6 @@ vite.config.js
 vite.config.d.ts
 browser-*.png
 portfolio-*.zip
+CODEx_CONTEXT.local.md
+.codex/
+*.local.md
