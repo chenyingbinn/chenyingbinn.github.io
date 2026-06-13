@@ -398,7 +398,8 @@ button {
     34px 34px,
     170px 170px,
     170px 170px;
-  mask-image: radial-gradient(circle at 67% 40%, rgba(0, 0, 0, 0.86), transparent 72%);
+  opacity: 0.62;
+  mask-image: radial-gradient(circle at 67% 40%, rgba(0, 0, 0, 0.62), transparent 72%);
   transform: rotate(-1.1deg) scale(1.04);
 }
 
@@ -419,8 +420,13 @@ button {
   position: absolute;
   inset: -7% 0 -3%;
   z-index: 0;
+  opacity: 0.52;
   pointer-events: none;
   transform-origin: center top;
+}
+
+.hero > .signal-field {
+  opacity: 0.26 !important;
 }
 
 .hero-signal-stage {
@@ -429,8 +435,8 @@ button {
   grid-column: 3 / 5;
   grid-row: 1;
   align-self: stretch;
-  min-height: 620px;
-  transform: translate3d(calc(var(--pointer-x) * 12px), calc(var(--pointer-y) * 9px), 90px);
+  min-height: 610px;
+  transform: translate3d(calc(var(--pointer-x) * 15px), calc(var(--pointer-y) * 11px), 132px);
   transform-style: preserve-3d;
   pointer-events: none;
 }
@@ -438,7 +444,7 @@ button {
 .hero-signal-world,
 .hero-signal-fallback {
   position: absolute;
-  inset: -8% -6% -6% -18%;
+  inset: -17% -14% -12% -26%;
   z-index: 0;
   pointer-events: none;
 }
@@ -460,28 +466,28 @@ button {
 
 .hero-signal-stage::before {
   position: absolute;
-  left: 8%;
-  top: 9%;
-  width: min(52vw, 640px);
-  height: min(52vw, 640px);
+  left: 3%;
+  top: 2%;
+  width: min(58vw, 760px);
+  height: min(58vw, 760px);
   border-radius: 999px;
   content: "";
   background:
     radial-gradient(circle, rgba(103, 232, 249, 0.12), transparent 54%),
     radial-gradient(circle, rgba(15, 118, 110, 0.18), transparent 70%);
   filter: blur(10px);
-  opacity: 0.94;
+  opacity: 1;
 }
 
 .hero-signal-stage .signal-map-card {
   position: absolute;
   right: max(18px, 7vw);
-  bottom: 8%;
+  bottom: 4%;
   z-index: 2;
-  width: min(370px, 58%);
+  width: min(320px, 48%);
   min-width: 320px;
-  opacity: 0.7;
-  transform: translate3d(calc(var(--pointer-x) * 8px), calc(var(--pointer-y) * 6px), 92px) scale(0.86);
+  opacity: 0.44;
+  transform: translate3d(calc(var(--pointer-x) * 7px), calc(var(--pointer-y) * 5px), 92px) scale(0.76);
 }
 
 .hero-signal-stage .signal-map-topline {
