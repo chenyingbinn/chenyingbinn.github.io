@@ -1,5 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import {
   ArrowUpRight,
@@ -26,6 +29,12 @@ import { getCardVariants, getHoverMotion, staggerContainer } from "./motion";
 import { Experience, ExperienceKind, labels, Locale, profile } from "./profile";
 
 type FilterKind = "all" | ExperienceKind;
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+const HeroSignalWorld = lazy(() =>
+  import("./components/HeroSignalWorld").then((module) => ({ default: module.HeroSignalWorld })),
+);
 
 const filterOrder: FilterKind[] = ["all", "research", "internship", "project"];
 const sectionIds = ["overview", "academic-research", "experience", "capabilities", "notes", "contact"] as const;
@@ -206,6 +215,7 @@ function App() {
   const [activeFilter, setActiveFilter] = useState<FilterKind>("all");
   const [activeExperienceId, setActiveExperienceId] = useState("photonpay");
   const shouldReduceMotion = useReducedMotion();
+  const rootRef = useRef<HTMLElement>(null);
   const heroRef = useRef<HTMLElement>(null);
   const academicRef = useRef<HTMLElement>(null);
   const practiceRef = useRef<HTMLElement>(null);
@@ -225,6 +235,81 @@ function App() {
   const cardVariants = getCardVariants(shouldReduceMotion);
   const hoverMotion = getHoverMotion(shouldReduceMotion);
   usePointerParallax(heroRef, shouldReduceMotion);
+
+  useGSAP(
+    () => {
+      if (shouldReduceMotion) return;
+
+      gsap
+        .timeline({ defaults: { ease: "power3.out" } })
+        .fromTo(".hero-signal-stage", { autoAlpha: 0, scale: 0.86, y: 24 }, { autoAlpha: 1, scale: 1, y: 0, duration: 1.05 })
+        .fromTo(
+          ".hero-copy .eyebrow, .hero-copy h1, .hero-copy .headline, .hero-copy .intro, .hero-copy .positioning-line, .hero-copy .hero-actions",
+          { autoAlpha: 0, y: 18 },
+          { autoAlpha: 1, y: 0, duration: 0.72, stagger: 0.075 },
+          "-=0.62",
+        );
+
+      gsap.to(".hero-signal-stage", {
+        autoAlpha: 0.28,
+        scale: 0.82,
+        y: -92,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      gsap.to(".hero-copy", {
+        y: -54,
+        autoAlpha: 0.42,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero",
+          start: "42% top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      gsap.fromTo(
+        ".hero-research-bridge .bridge-copy, .hero-research-bridge p",
+        { autoAlpha: 0.42, y: 18 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".hero-research-bridge",
+            start: "top 82%",
+            end: "center 58%",
+            scrub: 0.6,
+          },
+        },
+      );
+
+      gsap.fromTo(
+        ".publication-feature .research-heading-row, .featured-research-card",
+        { autoAlpha: 0.72, y: 34, scale: 0.985 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".publication-feature",
+            start: "top 78%",
+            end: "top 44%",
+            scrub: 0.5,
+          },
+        },
+      );
+    },
+    { scope: rootRef, dependencies: [shouldReduceMotion] },
+  );
 
   useEffect(() => {
     const scrollToHash = () => {
@@ -262,7 +347,7 @@ function App() {
     profile.experiences.find((experience) => experience.id === activeExperienceId) ?? profile.experiences[0];
 
   return (
-    <main className="site-shell">
+    <main className="site-shell" ref={rootRef}>
       <motion.div
         className="site-environment"
         aria-hidden="true"
@@ -340,7 +425,18 @@ function App() {
           </div>
         </motion.div>
 
-        <SignalMap locale={locale} />
+        <div className="hero-signal-stage">
+          <Suspense
+            fallback={
+              <div className="hero-signal-fallback" aria-hidden="true">
+                <SignalField />
+              </div>
+            }
+          >
+            <HeroSignalWorld />
+          </Suspense>
+          <SignalMap locale={locale} />
+        </div>
         <div className="hero-scroll-cue" aria-hidden="true">
           <span />
         </div>

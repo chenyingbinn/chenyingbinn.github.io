@@ -53,8 +53,7 @@ html {
     transform: none !important;
   }
 
-  .signal-field,
-  .signal-field-arc,
+  .hero-signal-world,
   .hero-scroll-cue,
   .scroll-signal,
   .hero-research-bridge .bridge-trail,
@@ -422,6 +421,97 @@ button {
   z-index: 0;
   pointer-events: none;
   transform-origin: center top;
+}
+
+.hero-signal-stage {
+  position: relative;
+  z-index: 1;
+  grid-column: 3 / 5;
+  grid-row: 1;
+  align-self: stretch;
+  min-height: 620px;
+  transform: translate3d(calc(var(--pointer-x) * 12px), calc(var(--pointer-y) * 9px), 90px);
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.hero-signal-world,
+.hero-signal-fallback {
+  position: absolute;
+  inset: -8% -6% -6% -18%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-signal-world canvas {
+  display: block;
+  pointer-events: none;
+}
+
+.hero-signal-fallback {
+  overflow: hidden;
+  opacity: 0.78;
+}
+
+.hero-signal-fallback .signal-field {
+  inset: -10% -8%;
+  display: block;
+}
+
+.hero-signal-stage::before {
+  position: absolute;
+  left: 8%;
+  top: 9%;
+  width: min(52vw, 640px);
+  height: min(52vw, 640px);
+  border-radius: 999px;
+  content: "";
+  background:
+    radial-gradient(circle, rgba(103, 232, 249, 0.12), transparent 54%),
+    radial-gradient(circle, rgba(15, 118, 110, 0.18), transparent 70%);
+  filter: blur(10px);
+  opacity: 0.94;
+}
+
+.hero-signal-stage .signal-map-card {
+  position: absolute;
+  right: max(18px, 7vw);
+  bottom: 8%;
+  z-index: 2;
+  width: min(370px, 58%);
+  min-width: 320px;
+  opacity: 0.7;
+  transform: translate3d(calc(var(--pointer-x) * 8px), calc(var(--pointer-y) * 6px), 92px) scale(0.86);
+}
+
+.hero-signal-stage .signal-map-topline {
+  min-height: 44px;
+  padding-inline: 14px;
+}
+
+.hero-signal-stage .signal-map-canvas {
+  min-height: 306px;
+}
+
+.hero-signal-stage .signal-node {
+  max-width: 98px;
+  padding: 6px 8px;
+  font-size: 0.66rem;
+}
+
+.hero-signal-stage .signal-node.featured {
+  min-width: 116px;
+  padding: 9px 11px;
+  font-size: 0.78rem;
+}
+
+.hero-signal-stage .signal-map-footer {
+  padding: 13px 14px 14px;
+}
+
+.hero-signal-stage .signal-map-footer p {
+  font-size: 0.82rem;
+  line-height: 1.55;
 }
 
 .signal-field::before {
@@ -2995,6 +3085,7 @@ h1 span + span {
   }
 
   .hero-copy,
+  .hero-signal-stage,
   .signal-map-card {
     grid-column: auto;
     grid-row: auto;
@@ -3011,6 +3102,19 @@ h1 span + span {
 
   .signal-map-card {
     margin: 0;
+    transform: none;
+  }
+
+  .hero-signal-stage {
+    min-height: 590px;
+    transform: none;
+  }
+
+  .hero-signal-stage .signal-map-card {
+    right: 24px;
+    bottom: 22px;
+    width: min(460px, calc(100% - 48px));
+    min-width: 0;
     transform: none;
   }
 
@@ -3129,6 +3233,25 @@ h1 span + span {
 
   .signal-field {
     opacity: 0.58;
+  }
+
+  .hero-signal-stage {
+    min-height: 520px;
+  }
+
+  .hero-signal-world {
+    display: none;
+  }
+
+  .hero-signal-fallback {
+    inset: -8%;
+  }
+
+  .hero-signal-stage .signal-map-card {
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    opacity: 0.9;
   }
 
   .signal-field-plane,
