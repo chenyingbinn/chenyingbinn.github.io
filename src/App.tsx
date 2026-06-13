@@ -242,7 +242,11 @@ function App() {
 
       gsap
         .timeline({ defaults: { ease: "power3.out" } })
-        .fromTo(".hero-signal-stage", { autoAlpha: 0, scale: 0.86, y: 24 }, { autoAlpha: 1, scale: 1, y: 0, duration: 1.05 })
+        .fromTo(
+          ".hero-signal-stage",
+          { autoAlpha: 0, scale: 1.08, y: 34 },
+          { autoAlpha: 1, scale: 1, y: 0, duration: 1.15 },
+        )
         .fromTo(
           ".hero-copy .eyebrow, .hero-copy h1, .hero-copy .headline, .hero-copy .intro, .hero-copy .positioning-line, .hero-copy .hero-actions",
           { autoAlpha: 0, y: 18 },
@@ -251,9 +255,9 @@ function App() {
         );
 
       gsap.to(".hero-signal-stage", {
-        autoAlpha: 0.28,
-        scale: 0.82,
-        y: -92,
+        autoAlpha: 0.18,
+        scale: 0.72,
+        y: -132,
         ease: "none",
         scrollTrigger: {
           trigger: ".hero",
@@ -264,12 +268,12 @@ function App() {
       });
 
       gsap.to(".hero-copy", {
-        y: -54,
-        autoAlpha: 0.42,
+        y: -70,
+        autoAlpha: 0.34,
         ease: "none",
         scrollTrigger: {
           trigger: ".hero",
-          start: "42% top",
+          start: "36% top",
           end: "bottom top",
           scrub: true,
         },
