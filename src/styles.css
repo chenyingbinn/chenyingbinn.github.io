@@ -3973,22 +3973,23 @@ h1 span + span {
 
 .v4-index-nav {
   position: fixed;
-  top: 22px;
-  bottom: 22px;
-  left: 22px;
+  top: 18px;
+  bottom: 18px;
+  left: 18px;
   z-index: 80;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   align-items: start;
-  gap: 18px;
-  width: 92px;
-  padding: 12px 10px;
+  gap: 12px;
+  width: 72px;
+  padding: 10px 8px;
   color: rgba(245, 252, 255, 0.9);
-  border: 1px solid rgba(205, 252, 255, 0.18);
+  border: 1px solid rgba(205, 252, 255, 0.12);
   border-radius: 999px;
-  background: rgba(4, 11, 14, 0.34);
-  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.24);
-  backdrop-filter: blur(18px);
+  background: rgba(4, 11, 14, 0.24);
+  box-shadow: 0 18px 58px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(16px);
+  overflow: hidden;
 }
 
 .v4-index-mark,
@@ -4003,33 +4004,42 @@ h1 span + span {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  padding: 8px 0 4px;
-  font-size: 0.76rem;
+  gap: 5px;
+  padding: 6px 0 2px;
+  font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
 
 .v4-index-mark img {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }
 
 .v4-index-nav nav {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 18px;
+  align-self: stretch;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: clamp(16px, 3.2vh, 28px);
+  height: 100%;
   min-height: 0;
-  font-size: 0.66rem;
+  width: 100%;
+  overflow: hidden;
+  font-size: 0.58rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  writing-mode: vertical-rl;
+  letter-spacing: 0.08em;
 }
 
 .v4-index-nav nav a {
+  display: block;
+  max-width: 1.2em;
+  max-height: 128px;
+  overflow: hidden;
   opacity: 0.66;
+  line-height: 1;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
   transition: opacity var(--motion-fast) var(--motion-ease), color var(--motion-fast) var(--motion-ease);
 }
 
@@ -4043,12 +4053,12 @@ h1 span + span {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 3px;
   width: 100%;
   min-width: 0;
-  padding: 10px 0;
+  padding: 8px 0;
   color: #eaffff;
-  border: 1px solid rgba(188, 253, 255, 0.18);
+  border: 1px solid rgba(188, 253, 255, 0.13);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.07);
   cursor: pointer;
@@ -4058,7 +4068,7 @@ h1 span + span {
   position: relative;
   z-index: 1;
   min-height: 100svh;
-  padding: clamp(82px, 9vw, 124px) clamp(18px, 5vw, 76px) 34px clamp(118px, 11vw, 164px);
+  padding: clamp(82px, 9vw, 124px) clamp(18px, 5vw, 76px) 34px clamp(104px, 10vw, 148px);
   overflow: hidden;
   isolation: isolate;
   background:
@@ -4565,8 +4575,8 @@ h1 span + span {
   z-index: 2;
   border: 0;
   border-radius: 0;
-  padding: clamp(96px, 12vw, 180px) clamp(18px, 5vw, 76px);
-  overflow: hidden;
+  padding: clamp(118px, 12vw, 190px) clamp(18px, 5vw, 76px);
+  overflow: clip;
   color: #f3fdff;
   background:
     radial-gradient(circle at 78% 24%, rgba(45, 212, 191, 0.16), transparent 33rem),
@@ -4599,15 +4609,15 @@ h1 span + span {
   grid-template-columns: minmax(0, 0.8fr) minmax(260px, 0.42fr);
   gap: clamp(24px, 5vw, 72px);
   align-items: end;
-  margin-top: 30px;
+  margin-top: clamp(38px, 5vw, 72px);
   margin-bottom: clamp(40px, 7vw, 96px);
 }
 
 .v4-path-header h2 {
   grid-column: 1;
   margin: 10px 0 0;
-  font-size: clamp(3rem, 8vw, 8.8rem);
-  line-height: 0.88;
+  font-size: clamp(3rem, 7.3vw, 8.05rem);
+  line-height: 0.96;
   letter-spacing: 0;
 }
 
@@ -4822,11 +4832,11 @@ h1 span + span {
     linear-gradient(180deg, #f2ecdf, #faf7ef 66%, #f3eee3);
 }
 
-@media (min-width: 1081px) {
+@media (min-width: 1181px) {
   .v4-research-object,
   #experience.v4-practice-path,
   .v4-closing-index {
-    padding-left: clamp(132px, 12vw, 176px);
+    padding-left: clamp(112px, 10vw, 152px);
   }
 }
 
@@ -4850,7 +4860,7 @@ h1 span + span {
 .v4-closing-heading h2 {
   margin: 10px 0 0;
   font-size: clamp(2.8rem, 7.8vw, 8.2rem);
-  line-height: 0.88;
+  line-height: 0.94;
 }
 
 .v4-closing-heading p {
@@ -4962,15 +4972,20 @@ h1 span + span {
   background: #0b2324;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1180px) {
   .v4-index-nav {
     top: 12px;
     bottom: auto;
     left: 50%;
+    align-items: center;
     grid-template-columns: auto auto;
     grid-template-rows: auto auto;
-    width: min(720px, calc(100vw - 28px));
+    gap: 10px 16px;
+    width: min(760px, calc(100vw - 28px));
+    padding: 10px 12px;
     border-radius: 24px;
+    background: rgba(4, 11, 14, 0.42);
+    overflow: visible;
     transform: translateX(-50%);
   }
 
@@ -4982,10 +4997,21 @@ h1 span + span {
   .v4-index-nav nav {
     grid-column: 1 / -1;
     order: 3;
+    display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    gap: 18px;
+    width: 100%;
     overflow-x: auto;
     padding: 4px 8px 8px;
+    font-size: 0.68rem;
+    writing-mode: horizontal-tb;
+  }
+
+  .v4-index-nav nav a {
+    max-width: none;
+    max-height: none;
+    line-height: 1;
     writing-mode: horizontal-tb;
   }
 
@@ -5027,9 +5053,17 @@ h1 span + span {
     grid-template-columns: 1fr;
   }
 
+  .v4-publication-object > *,
   .v4-research-title,
   .v4-secondary-object {
     grid-column: auto;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .v4-research-title h2 {
+    max-width: 100%;
+    overflow-wrap: break-word;
   }
 
   .v4-secondary-object {
@@ -5046,6 +5080,20 @@ h1 span + span {
   .v4-path-header p,
   .v4-closing-heading p {
     grid-column: auto;
+  }
+
+  #experience.v4-practice-path {
+    overflow: visible;
+    padding-top: clamp(112px, 13vw, 160px);
+  }
+
+  .v4-path-header {
+    margin-top: 0;
+  }
+
+  .v4-path-header h2 {
+    font-size: clamp(2.8rem, 10vw, 6.2rem);
+    line-height: 1;
   }
 
   .v4-path-station,
@@ -5108,7 +5156,7 @@ h1 span + span {
   }
 
   .v4-research-object,
-  .v4-practice-path,
+  #experience.v4-practice-path,
   .v4-closing-index {
     padding-inline: 18px;
   }
@@ -5126,6 +5174,7 @@ h1 span + span {
   .v4-closing-heading h2,
   .v4-research-title h2 {
     font-size: clamp(2.5rem, 16vw, 4.6rem);
+    line-height: 1;
   }
 
   .v4-path-station {

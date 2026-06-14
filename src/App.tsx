@@ -52,7 +52,7 @@ function App() {
         .fromTo(".v4-opening-signature, .v4-opening-caption, .v4-scroll-cue", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.72, stagger: 0.08 }, "-=0.42")
         .fromTo(".v4-opening-visual", { scale: 1.08, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 1.18 }, "-=0.94");
 
-      mm.add("(min-width: 960px)", () => {
+      mm.add("(min-width: 1181px)", () => {
         const openingPin = ScrollTrigger.create({
           trigger: ".v4-opening",
           start: "top top",
