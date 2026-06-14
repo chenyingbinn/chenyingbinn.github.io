@@ -22,8 +22,8 @@ import {
 } from "lucide-react";
 import { AnimatedSection } from "./components/AnimatedSection";
 import { NarrativeBridge } from "./components/NarrativeBridge";
-import { ScrollSignal } from "./components/ScrollSignal";
 import { SignalField } from "./components/SignalField";
+import { useLenisScroll } from "./hooks/useLenisScroll";
 import { usePointerParallax } from "./hooks/usePointerParallax";
 import { getCardVariants, getHoverMotion, staggerContainer } from "./motion";
 import { Experience, ExperienceKind, labels, Locale, profile } from "./profile";
@@ -235,6 +235,7 @@ function App() {
   const cardVariants = getCardVariants(shouldReduceMotion);
   const hoverMotion = getHoverMotion(shouldReduceMotion);
   usePointerParallax(heroRef, shouldReduceMotion);
+  useLenisScroll(Boolean(shouldReduceMotion));
 
   useGSAP(
     () => {
@@ -255,14 +256,15 @@ function App() {
         );
 
       gsap.to(".hero-signal-stage", {
-        autoAlpha: 0.18,
-        scale: 0.72,
-        y: -132,
+        autoAlpha: 0.1,
+        scale: 0.66,
+        y: -172,
+        x: 86,
         ease: "none",
         scrollTrigger: {
           trigger: ".hero",
           start: "top top",
-          end: "bottom top",
+          end: "bottom+=55% top",
           scrub: true,
         },
       });
@@ -274,9 +276,63 @@ function App() {
         scrollTrigger: {
           trigger: ".hero",
           start: "36% top",
-          end: "bottom top",
+          end: "bottom+=20% top",
           scrub: true,
         },
+      });
+
+      const matchMedia = gsap.matchMedia();
+
+      matchMedia.add("(min-width: 960px)", () => {
+        const pin = ScrollTrigger.create({
+          trigger: ".hero",
+          start: "top top",
+          end: "+=72%",
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 0.5,
+        });
+
+        const archive = gsap.fromTo(
+          ".archive-scene .education-band, .archive-scene .publication-feature",
+          { y: 82, autoAlpha: 0.68, scale: 0.975 },
+          {
+            y: 0,
+            autoAlpha: 1,
+            scale: 1,
+            ease: "power2.out",
+            stagger: 0.12,
+            scrollTrigger: {
+              trigger: ".archive-scene",
+              start: "top 82%",
+              end: "top 32%",
+              scrub: 0.7,
+            },
+          },
+        );
+
+        const corridor = gsap.fromTo(
+          ".flow-corridor .timeline-item, .flow-corridor .experience-detail",
+          { y: 42, autoAlpha: 0.72 },
+          {
+            y: 0,
+            autoAlpha: 1,
+            ease: "power2.out",
+            stagger: 0.055,
+            scrollTrigger: {
+              trigger: ".flow-corridor",
+              start: "top 78%",
+              end: "top 34%",
+              scrub: 0.65,
+            },
+          },
+        );
+
+        return () => {
+          pin.kill();
+          archive.kill();
+          corridor.kill();
+        };
       });
 
       gsap.fromTo(
@@ -311,6 +367,8 @@ function App() {
           },
         },
       );
+
+      return () => matchMedia.revert();
     },
     { scope: rootRef, dependencies: [shouldReduceMotion] },
   );
@@ -364,7 +422,6 @@ function App() {
         <span className="ambient-signal-line line-one" />
         <span className="ambient-signal-line line-two" />
       </motion.div>
-      <ScrollSignal progress={scrollYProgress} />
       <header className="topbar">
         <a className="brand-mark" href="#overview" aria-label="Yingbin Chen portfolio home">
           <img className="brand-mark-image" src={assetPath("favicon.svg")} alt="" aria-hidden="true" />
@@ -392,9 +449,10 @@ function App() {
         </button>
       </header>
 
-      <AnimatedSection className="hero hero-stage portfolio-chapter chapter-opening" id="overview" ref={heroRef}>
+      <AnimatedSection className="hero hero-stage portfolio-chapter chapter-opening act-one signal-cover-scene" id="overview" ref={heroRef}>
         <SignalField />
         <motion.div className="hero-copy" variants={staggerContainer}>
+          <span className="act-label">Act 1 / Signal Cover</span>
           <div className="eyebrow">
             <Sparkles size={16} />
             <span>{hero.kicker}</span>
@@ -404,15 +462,17 @@ function App() {
             <span>{hero.title[1]}</span>
           </h1>
           <p className="headline">{hero.subtitle}</p>
-          <p className="intro">{hero.intro}</p>
-          <p className="positioning-line">{hero.positioningLine}</p>
-          <motion.div className="identity-tags" aria-label="Portfolio focus areas" variants={staggerContainer}>
-            {hero.tags.map((tag) => (
-              <motion.span key={tag} variants={cardVariants}>
-                {tag}
-              </motion.span>
-            ))}
-          </motion.div>
+          <div className="hero-editorial-note">
+            <p className="intro">{hero.intro}</p>
+            <p className="positioning-line">{hero.positioningLine}</p>
+            <motion.div className="identity-tags" aria-label="Portfolio focus areas" variants={staggerContainer}>
+              {hero.tags.map((tag) => (
+                <motion.span key={tag} variants={cardVariants}>
+                  {tag}
+                </motion.span>
+              ))}
+            </motion.div>
+          </div>
           <div className="hero-actions" aria-label="Hero actions">
             <a className="primary-action" href={`mailto:${profile.email}`}>
               <Mail size={18} />
@@ -449,11 +509,12 @@ function App() {
       <NarrativeBridge locale={locale} />
 
       <AnimatedSection
-        className="portfolio-chapter chapter-academic"
+        className="portfolio-chapter chapter-academic archive-scene act-two"
         id="academic-research"
         ref={academicRef}
         style={shouldReduceMotion ? undefined : { y: academicDrift }}
       >
+        <span className="act-label archive-label">Act 2 / Research Archive</span>
         <ChapterIntro label={chapter.academicLabel} title={chapter.academicTitle} deck={chapter.academicDeck} />
 
       <section className="section-band education-band">
@@ -638,11 +699,12 @@ function App() {
       </AnimatedSection>
 
       <AnimatedSection
-        className="portfolio-chapter chapter-field section-band"
+        className="portfolio-chapter chapter-field section-band flow-corridor act-three"
         id="experience"
         ref={practiceRef}
         style={shouldReduceMotion ? undefined : { y: practiceDrift }}
       >
+        <span className="act-label flow-label">Act 3 / Practice Flow Corridor</span>
         <ChapterIntro label={chapter.fieldLabel} title={chapter.fieldTitle} deck={chapter.fieldDeck} compact />
         <div className="section-header-row">
           <div>
@@ -692,6 +754,7 @@ function App() {
       </AnimatedSection>
 
       <AnimatedSection className="portfolio-chapter chapter-capabilities" id="capabilities">
+        <span className="act-label closing-label">Act 4 / Capability + Closing</span>
         <ChapterIntro
           label={chapter.capabilitiesLabel}
           title={chapter.capabilitiesTitle}
